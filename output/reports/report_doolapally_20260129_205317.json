@@ -1,0 +1,66 @@
+{
+  "summary": {
+    "flight_name": "doolapally",
+    "input_folder": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmp1nc0qq8u",
+    "processing_timestamp": "2026-01-29T20:53:17.754272",
+    "total_images": 1,
+    "damaged_count": 0,
+    "clean_count": 1,
+    "error_count": 0,
+    "damage_percentage": 0.0,
+    "clean_percentage": 100.0,
+    "total_damages_detected": 0,
+    "damage_type_statistics": {},
+    "average_confidence": 0,
+    "confidence_threshold_used": 0.3
+  },
+  "area_analysis": {
+    "area_name": "doolapally",
+    "survey_date": "2026-01-29T20:53:17.754278",
+    "overall_condition": "EXCELLENT",
+    "condition_description": "No damage detected - road in excellent condition",
+    "summary_statistics": {
+      "total_images_surveyed": 1,
+      "damaged_locations": 0,
+      "damage_rate_percentage": 0.0,
+      "total_damaged_area_sqm": 0.0,
+      "total_repair_cost_usd": 0.0,
+      "total_repair_time_hours": 0.0,
+      "estimated_project_duration_days": 0
+    },
+    "recommendations": [
+      "Continue regular monitoring",
+      "Schedule preventive maintenance in 6-12 months",
+      "Monitor for early signs of wear",
+      "Maintain current maintenance practices"
+    ],
+    "next_inspection": "2026-07-28",
+    "maintenance_schedule": {
+      "preventive_sealing": "12-18 months",
+      "crack_monitoring": "6 months",
+      "surface_treatment": "3-5 years"
+    }
+  },
+  "detailed_results": [
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmp1nc0qq8u/istockphoto-929942316-612x612.jpg",
+      "filename": "istockphoto-929942316-612x612.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 612,
+        "height": 408,
+        "channels": 3,
+        "file_size": 72579,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:53:17.753701",
+      "clean_image_path": "output/clean_images/doolapally_istockphoto-929942316-612x612.jpg"
+    }
+  ]
+}

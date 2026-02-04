@@ -1,0 +1,346 @@
+{
+  "summary": {
+    "flight_name": "Clean_Highway_Test",
+    "input_folder": "sample_drone_images",
+    "processing_timestamp": "2026-01-29T20:57:11.255530",
+    "total_images": 15,
+    "damaged_count": 0,
+    "clean_count": 15,
+    "error_count": 0,
+    "damage_percentage": 0.0,
+    "clean_percentage": 100.0,
+    "total_damages_detected": 0,
+    "damage_type_statistics": {},
+    "average_confidence": 0,
+    "confidence_threshold_used": 0.2
+  },
+  "area_analysis": {
+    "area_name": "Clean_Highway_Test",
+    "survey_date": "2026-01-29T20:57:11.255552",
+    "overall_condition": "EXCELLENT",
+    "condition_description": "No damage detected - road in excellent condition",
+    "summary_statistics": {
+      "total_images_surveyed": 15,
+      "damaged_locations": 0,
+      "damage_rate_percentage": 0.0,
+      "total_damaged_area_sqm": 0.0,
+      "total_repair_cost_usd": 0.0,
+      "total_repair_time_hours": 0.0,
+      "estimated_project_duration_days": 0
+    },
+    "recommendations": [
+      "Continue regular monitoring",
+      "Schedule preventive maintenance in 6-12 months",
+      "Monitor for early signs of wear",
+      "Maintain current maintenance practices"
+    ],
+    "next_inspection": "2026-07-28",
+    "maintenance_schedule": {
+      "preventive_sealing": "12-18 months",
+      "crack_monitoring": "6 months",
+      "surface_treatment": "3-5 years"
+    }
+  },
+  "detailed_results": [
+    {
+      "original_path": "sample_drone_images/drone_img_007_lat40.718468_lon-74.000213_20260117_111046.jpg",
+      "filename": "drone_img_007_lat40.718468_lon-74.000213_20260117_111046.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.718468,
+      "longitude": -74.000213,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 212417,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.182862",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_007_lat40.718468_lon-74.000213_20260117_111046.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_014_lat40.725834_lon-73.992758_20260102_083846.jpg",
+      "filename": "drone_img_014_lat40.725834_lon-73.992758_20260102_083846.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.725834,
+      "longitude": -73.992758,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 213785,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.250065",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_014_lat40.725834_lon-73.992758_20260102_083846.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_002_lat40.713794_lon-74.005243_20260123_064746.jpg",
+      "filename": "drone_img_002_lat40.713794_lon-74.005243_20260123_064746.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.713794,
+      "longitude": -74.005243,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 213083,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.315137",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_002_lat40.713794_lon-74.005243_20260123_064746.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_006_lat40.717563_lon-74.000924_20260108_045446.jpg",
+      "filename": "drone_img_006_lat40.717563_lon-74.000924_20260108_045446.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.717563,
+      "longitude": -74.000924,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 187414,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.379907",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_006_lat40.717563_lon-74.000924_20260108_045446.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_010_lat40.722245_lon-73.996992_20260122_033346.jpg",
+      "filename": "drone_img_010_lat40.722245_lon-73.996992_20260122_033346.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.722245,
+      "longitude": -73.996992,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 104940,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.446204",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_010_lat40.722245_lon-73.996992_20260122_033346.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_013_lat40.725238_lon-73.994442_20260105_101146.jpg",
+      "filename": "drone_img_013_lat40.725238_lon-73.994442_20260105_101146.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.725238,
+      "longitude": -73.994442,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 187521,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.513404",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_013_lat40.725238_lon-73.994442_20260105_101146.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_001_lat40.713094_lon-74.006315_20260109_040346.jpg",
+      "filename": "drone_img_001_lat40.713094_lon-74.006315_20260109_040346.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.713094,
+      "longitude": -74.006315,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 213200,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.583378",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_001_lat40.713094_lon-74.006315_20260109_040346.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_004_lat40.715876_lon-74.003237_20260111_063346.jpg",
+      "filename": "drone_img_004_lat40.715876_lon-74.003237_20260111_063346.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.715876,
+      "longitude": -74.003237,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 187642,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.652523",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_004_lat40.715876_lon-74.003237_20260111_063346.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_011_lat40.722904_lon-73.995985_20260116_140246.jpg",
+      "filename": "drone_img_011_lat40.722904_lon-73.995985_20260116_140246.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.722904,
+      "longitude": -73.995985,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 91981,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.719158",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_011_lat40.722904_lon-73.995985_20260116_140246.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_015_lat40.727081_lon-73.992425_20260108_020246.jpg",
+      "filename": "drone_img_015_lat40.727081_lon-73.992425_20260108_020246.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.727081,
+      "longitude": -73.992425,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 187414,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.785296",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_015_lat40.727081_lon-73.992425_20260108_020246.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_009_lat40.720639_lon-73.997772_20260119_130246.jpg",
+      "filename": "drone_img_009_lat40.720639_lon-73.997772_20260119_130246.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.720639,
+      "longitude": -73.997772,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 213257,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.855885",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_009_lat40.720639_lon-73.997772_20260119_130246.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_008_lat40.720187_lon-73.999306_20260107_011246.jpg",
+      "filename": "drone_img_008_lat40.720187_lon-73.999306_20260107_011246.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.720187,
+      "longitude": -73.999306,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 213934,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:10.923598",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_008_lat40.720187_lon-73.999306_20260107_011246.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_005_lat40.716458_lon-74.001882_20260103_190846.jpg",
+      "filename": "drone_img_005_lat40.716458_lon-74.001882_20260103_190846.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.716458,
+      "longitude": -74.001882,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 213081,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:11.014439",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_005_lat40.716458_lon-74.001882_20260103_190846.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_012_lat40.723830_lon-73.994714_20260128_190246.jpg",
+      "filename": "drone_img_012_lat40.723830_lon-73.994714_20260128_190246.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.72383,
+      "longitude": -73.994714,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 104735,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:11.177023",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_012_lat40.723830_lon-73.994714_20260128_190246.jpg"
+    },
+    {
+      "original_path": "sample_drone_images/drone_img_003_lat40.715101_lon-74.003536_20251231_061746.jpg",
+      "filename": "drone_img_003_lat40.715101_lon-74.003536_20251231_061746.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.715101,
+      "longitude": -74.003536,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 213078,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-01-29T20:57:11.254890",
+      "clean_image_path": "output/clean_images/Clean_Highway_Test_drone_img_003_lat40.715101_lon-74.003536_20251231_061746.jpg"
+    }
+  ]
+}

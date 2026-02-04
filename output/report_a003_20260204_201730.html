@@ -1,0 +1,1576 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Damage Survey Report - Kompally</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .damage-badge { border-radius: 20px; padding: 5px 15px; font-size: 0.8rem; font-weight: bold; }
+        .damage-D00 { background-color: #ff6b6b; color: white; }
+        .damage-D10 { background-color: #4ecdc4; color: white; }
+        .damage-D20 { background-color: #45b7d1; color: white; }
+        .damage-D40 { background-color: #f9ca24; color: black; }
+        .damage-Repair { background-color: #6c5ce7; color: white; }
+        .damage-Block { background-color: #a0a0a0; color: white; }
+        
+        .severity-critical { background-color: #dc3545; color: white; }
+        .severity-severe { background-color: #fd7e14; color: white; }
+        .severity-moderate { background-color: #ffc107; color: black; }
+        .severity-minor { background-color: #28a745; color: white; }
+        
+        .priority-1 { background-color: #dc3545; color: white; }
+        .priority-2 { background-color: #fd7e14; color: white; }
+        .priority-3 { background-color: #ffc107; color: black; }
+        .priority-4 { background-color: #28a745; color: white; }
+        
+        #map { height: 400px; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .damage-card { border: 1px solid #ddd; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .damage-card img { width: 100%; height: 200px; object-fit: cover; cursor: pointer; }
+        .condition-excellent { background: linear-gradient(135deg, #28a745, #20c997); }
+        .condition-good { background: linear-gradient(135deg, #28a745, #ffc107); }
+        .condition-fair { background: linear-gradient(135deg, #ffc107, #fd7e14); }
+        .condition-poor { background: linear-gradient(135deg, #fd7e14, #dc3545); }
+        .condition-critical { background: linear-gradient(135deg, #dc3545, #6f42c1); }
+        
+        .stats-card { border-radius: 15px; padding: 20px; margin-bottom: 20px; color: white; }
+        .detail-section { background: #f8f9fa; border-radius: 10px; padding: 20px; margin: 20px 0; }
+        .timeline-item { border-left: 3px solid #007bff; padding-left: 15px; margin-bottom: 15px; }
+        .cost-breakdown { background: white; border-radius: 10px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        
+        .image-modal img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="text-center py-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 15px;">
+                    <h1><i class="fas fa-road"></i> Road Damage Survey Report</h1>
+                    <h3>Kompally</h3>
+                    <p class="mb-0">Survey Date: 2026-02-04</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Overall Condition -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="stats-card condition-poor">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2><i class="fas fa-clipboard-check"></i> Overall Road Condition: POOR</h2>
+                            <p class="h5">Urgent repairs needed</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="display-4">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Summary Statistics -->
+        <div class="row mb-4">
+            <div class="col-md-2">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-images fa-2x text-primary mb-2"></i>
+                        <h3 class="text-primary">11</h3>
+                        <p class="mb-0">Images Surveyed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-exclamation-triangle fa-2x text-danger mb-2"></i>
+                        <h3 class="text-danger">10</h3>
+                        <p class="mb-0">Damaged Locations</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-percentage fa-2x text-warning mb-2"></i>
+                        <h3 class="text-warning">90.9%</h3>
+                        <p class="mb-0">Damage Rate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-rupee-sign fa-2x text-success mb-2"></i>
+                        <h3 class="text-success">₹13,489</h3>
+                        <p class="mb-0">Repair Cost</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-clock fa-2x text-info mb-2"></i>
+                        <h3 class="text-info">8h</h3>
+                        <p class="mb-0">Repair Time</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-calendar fa-2x text-secondary mb-2"></i>
+                        <h3 class="text-secondary">2</h3>
+                        <p class="mb-0">Project Days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Budget Breakdown -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-calculator"></i> Budget Breakdown</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="cost-breakdown">
+                            <div class="row">
+                                <div class="col-6"><strong>Materials:</strong></div>
+                                <div class="col-6 text-end">₹5,395.73</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6"><strong>Labor:</strong></div>
+                                <div class="col-6 text-end">₹4,721.26</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6"><strong>Equipment:</strong></div>
+                                <div class="col-6 text-end">₹2,023.40</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6"><strong>Traffic Control:</strong></div>
+                                <div class="col-6 text-end">₹674.47</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6"><strong>Contingency:</strong></div>
+                                <div class="col-6 text-end">₹674.47</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-6"><strong>Total Budget:</strong></div>
+                                <div class="col-6 text-end"><strong>₹13,489.32</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-users"></i> Resource Requirements</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="cost-breakdown">
+                            <div class="row mb-2">
+                                <div class="col-8">Peak Crew Size:</div>
+                                <div class="col-4 text-end"><strong>4 workers</strong></div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-8">Equipment Types:</div>
+                                <div class="col-4 text-end">11 types</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-8">Trucks Needed:</div>
+                                <div class="col-4 text-end">2 trucks</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+            <!-- Detailed Damage Analysis -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-search"></i> Detailed Damage Analysis (4 locations)</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="image-grid">
+            
+                    <div class="damage-card">
+                        <img src="/output/detected_images/detected_a003_WhatsApp_Image_2026-02-04_at_19.15.05_5.jpg" alt="Damage 1" onclick="showDamageModal(0)" 
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='">
+                        <div class="p-3">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-0">WhatsApp_Image_2026-02-04_at_19.15.05_5.jpeg</h6>
+                                <span class="badge priority-4">Priority 4</span>
+                            </div>
+                            
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <small><strong>Damages:</strong> 1</small>
+                                </div>
+                                <div class="col-6">
+                                    <small><strong>Severity:</strong> <span class="badge severity-minor">Minor</span></small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-2"><span class="badge damage-Block me-1 mb-1">Unknown Damage 67</span></div>
+                            
+                            <div class="detail-section">
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <div class="border-end">
+                                            <strong class="text-success">₹1,573</strong>
+                                            <br><small>Repair Cost</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="border-end">
+                                            <strong class="text-info">0.8h</strong>
+                                            <br><small>Repair Time</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <strong class="text-warning">1</strong>
+                                        <br><small>Work Days</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2 p-2 bg-light rounded">
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <strong>Location:</strong> Area: Kompally
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="damage-card">
+                        <img src="/output/detected_images/detected_a003_WhatsApp_Image_2026-02-04_at_19.15.04.jpg" alt="Damage 2" onclick="showDamageModal(1)" 
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='">
+                        <div class="p-3">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-0">WhatsApp_Image_2026-02-04_at_19.15.04.jpeg</h6>
+                                <span class="badge priority-4">Priority 4</span>
+                            </div>
+                            
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <small><strong>Damages:</strong> 1</small>
+                                </div>
+                                <div class="col-6">
+                                    <small><strong>Severity:</strong> <span class="badge severity-minor">Minor</span></small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-2"><span class="badge damage-Block me-1 mb-1">Unknown Damage 67</span></div>
+                            
+                            <div class="detail-section">
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <div class="border-end">
+                                            <strong class="text-success">₹785</strong>
+                                            <br><small>Repair Cost</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="border-end">
+                                            <strong class="text-info">0.4h</strong>
+                                            <br><small>Repair Time</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <strong class="text-warning">1</strong>
+                                        <br><small>Work Days</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2 p-2 bg-light rounded">
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <strong>Location:</strong> Area: Kompally
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="damage-card">
+                        <img src="/output/detected_images/detected_a003_WhatsApp_Image_2026-02-04_at_19.25.46.jpg" alt="Damage 3" onclick="showDamageModal(2)" 
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='">
+                        <div class="p-3">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-0">WhatsApp_Image_2026-02-04_at_19.25.46.jpeg</h6>
+                                <span class="badge priority-2">Priority 2</span>
+                            </div>
+                            
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <small><strong>Damages:</strong> 7</small>
+                                </div>
+                                <div class="col-6">
+                                    <small><strong>Severity:</strong> <span class="badge severity-severe">Severe</span></small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-2"><span class="badge damage-D40 me-1 mb-1">D40 Pothole</span></div>
+                            
+                            <div class="detail-section">
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <div class="border-end">
+                                            <strong class="text-success">₹10,572</strong>
+                                            <br><small>Repair Cost</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="border-end">
+                                            <strong class="text-info">6.7h</strong>
+                                            <br><small>Repair Time</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <strong class="text-warning">1</strong>
+                                        <br><small>Work Days</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2 p-2 bg-light rounded">
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <strong>Location:</strong> Area: Kompally
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="damage-card">
+                        <img src="/output/detected_images/detected_a003_WhatsApp_Image_2026-02-04_at_19.15.05_3.jpg" alt="Damage 4" onclick="showDamageModal(3)" 
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='">
+                        <div class="p-3">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-0">WhatsApp_Image_2026-02-04_at_19.15.05_3.jpeg</h6>
+                                <span class="badge priority-4">Priority 4</span>
+                            </div>
+                            
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <small><strong>Damages:</strong> 1</small>
+                                </div>
+                                <div class="col-6">
+                                    <small><strong>Severity:</strong> <span class="badge severity-minor">Minor</span></small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-2"><span class="badge damage-D10 me-1 mb-1">D10 Transverse Crack</span></div>
+                            
+                            <div class="detail-section">
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <div class="border-end">
+                                            <strong class="text-success">₹560</strong>
+                                            <br><small>Repair Cost</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="border-end">
+                                            <strong class="text-info">0.2h</strong>
+                                            <br><small>Repair Time</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <strong class="text-warning">1</strong>
+                                        <br><small>Work Days</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2 p-2 bg-light rounded">
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <strong>Location:</strong> Area: Kompally
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        <!-- Recommendations -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-lightbulb"></i> Recommendations & Next Steps</h5>
+                    </div>
+                    <div class="card-body">
+        
+                            <div class="alert alert-warning">
+                                <h6><i class="fas fa-arrow-right"></i> URGENT: Schedule 3 severe repair(s) within 1-2 weeks</h6>
+                                <p class="mb-0"><small>Prevent escalation to critical condition</small></p>
+                            </div>
+                
+                            <div class="alert alert-success">
+                                <h6><i class="fas fa-arrow-right"></i> PREVENTIVE: Implement regular inspection schedule every 6 months</h6>
+                                <p class="mb-0"><small>Early detection prevents costly major repairs</small></p>
+                            </div>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Detailed Damage Modal -->
+    <div class="modal fade" id="damageModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detailed Damage Analysis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="damageModalBody">
+                    <!-- Damage details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Image View</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" class="img-fluid" style="max-height: 80vh;">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Damage data for modal
+        const damageData = [
+  {
+    "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpkfhntiio/WhatsApp_Image_2026-02-04_at_19.15.05_5.jpeg",
+    "filename": "WhatsApp_Image_2026-02-04_at_19.15.05_5.jpeg",
+    "has_damage": true,
+    "damage_count": 1,
+    "damage_types": [
+      "Unknown_Damage_67"
+    ],
+    "confidence_scores": [
+      0.516250491142273
+    ],
+    "detections": [
+      {
+        "bbox": [
+          245.3762969970703,
+          145.62872314453125,
+          347.888671875,
+          222.3339385986328
+        ],
+        "confidence": 0.516250491142273,
+        "damage_type": "Unknown_Damage_67",
+        "class_id": 67
+      }
+    ],
+    "latitude": null,
+    "longitude": null,
+    "image_info": {
+      "width": 483,
+      "height": 279,
+      "channels": 3,
+      "file_size": 57935,
+      "format": ".jpeg"
+    },
+    "timestamp": "2026-02-04T20:17:29.867280",
+    "detailed_damage_analysis": [
+      {
+        "damage_type": "Unknown_Damage_67",
+        "severity": "minor",
+        "confidence": 0.516250491142273,
+        "area_sqm": 0.79,
+        "bbox": [
+          245.3762969970703,
+          145.62872314453125,
+          347.888671875,
+          222.3339385986328
+        ],
+        "repair_cost": 1572.65,
+        "repair_time_hours": 0.8,
+        "repair_days": 1,
+        "priority": {
+          "level": 4,
+          "action": "PREVENTIVE",
+          "timeline": "3-6 months",
+          "risk": "Minimal risk"
+        },
+        "repair_method": "Temporary patching",
+        "materials_needed": "Cold patch asphalt",
+        "crew_size": {
+          "total": 2,
+          "roles": {
+            "supervisor": 1,
+            "skilled_workers": 1,
+            "traffic_control": 0
+          }
+        },
+        "equipment_needed": [
+          "Hand tools",
+          "Safety equipment",
+          "Traffic cones",
+          "Crack sealing equipment",
+          "Cleaning tools"
+        ],
+        "safety_requirements": [
+          "High-visibility clothing",
+          "Hard hats",
+          "Safety glasses",
+          "Work zone setup",
+          "Basic traffic control",
+          "Warning signs"
+        ],
+        "weather_constraints": {
+          "temperature": {
+            "min": 40,
+            "max": 100,
+            "optimal": "50-85\u00b0F"
+          },
+          "conditions": [
+            "No precipitation during work",
+            "Dry surface required",
+            "Wind speed < 25 mph for sealants",
+            "No freezing conditions"
+          ],
+          "seasonal_notes": "Best performed in spring/summer/early fall"
+        },
+        "traffic_impact": {
+          "lane_closure": "Partial or rolling closure",
+          "duration": "Minimal disruption",
+          "traffic_control": "Basic signage sufficient",
+          "alternate_route": "Not required",
+          "peak_hour_restrictions": "Can work during off-peak hours"
+        },
+        "source_image": "WhatsApp_Image_2026-02-04_at_19.15.05_5.jpeg",
+        "gps_location": {
+          "latitude": null,
+          "longitude": null
+        }
+      }
+    ],
+    "total_repair_cost": 1572.65,
+    "total_repair_time_hours": 0.8,
+    "highest_priority": 4,
+    "most_severe": "minor",
+    "damaged_image_path": "output/damaged_images/a003_WhatsApp_Image_2026-02-04_at_19.15.05_5.jpg",
+    "detected_image_path": "output/detected_images/detected_a003_WhatsApp_Image_2026-02-04_at_19.15.05_5.jpg",
+    "thumbnail_path": "output/thumbnails/thumb_a003_WhatsApp_Image_2026-02-04_at_19.15.05_5.jpg"
+  },
+  {
+    "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpkfhntiio/WhatsApp_Image_2026-02-04_at_19.15.04.jpeg",
+    "filename": "WhatsApp_Image_2026-02-04_at_19.15.04.jpeg",
+    "has_damage": true,
+    "damage_count": 1,
+    "damage_types": [
+      "Unknown_Damage_67"
+    ],
+    "confidence_scores": [
+      0.41156908869743347
+    ],
+    "detections": [
+      {
+        "bbox": [
+          111.24881744384766,
+          106.37100219726562,
+          179.9371337890625,
+          163.52493286132812
+        ],
+        "confidence": 0.41156908869743347,
+        "damage_type": "Unknown_Damage_67",
+        "class_id": 67
+      }
+    ],
+    "latitude": null,
+    "longitude": null,
+    "image_info": {
+      "width": 340,
+      "height": 235,
+      "channels": 3,
+      "file_size": 30226,
+      "format": ".jpeg"
+    },
+    "timestamp": "2026-02-04T20:17:29.966748",
+    "detailed_damage_analysis": [
+      {
+        "damage_type": "Unknown_Damage_67",
+        "severity": "minor",
+        "confidence": 0.41156908869743347,
+        "area_sqm": 0.39,
+        "bbox": [
+          111.24881744384766,
+          106.37100219726562,
+          179.9371337890625,
+          163.52493286132812
+        ],
+        "repair_cost": 785.16,
+        "repair_time_hours": 0.4,
+        "repair_days": 1,
+        "priority": {
+          "level": 4,
+          "action": "PREVENTIVE",
+          "timeline": "3-6 months",
+          "risk": "Minimal risk"
+        },
+        "repair_method": "Temporary patching",
+        "materials_needed": "Cold patch asphalt",
+        "crew_size": {
+          "total": 2,
+          "roles": {
+            "supervisor": 1,
+            "skilled_workers": 1,
+            "traffic_control": 0
+          }
+        },
+        "equipment_needed": [
+          "Hand tools",
+          "Safety equipment",
+          "Traffic cones",
+          "Crack sealing equipment",
+          "Cleaning tools"
+        ],
+        "safety_requirements": [
+          "High-visibility clothing",
+          "Hard hats",
+          "Safety glasses",
+          "Work zone setup",
+          "Basic traffic control",
+          "Warning signs"
+        ],
+        "weather_constraints": {
+          "temperature": {
+            "min": 40,
+            "max": 100,
+            "optimal": "50-85\u00b0F"
+          },
+          "conditions": [
+            "No precipitation during work",
+            "Dry surface required",
+            "Wind speed < 25 mph for sealants",
+            "No freezing conditions"
+          ],
+          "seasonal_notes": "Best performed in spring/summer/early fall"
+        },
+        "traffic_impact": {
+          "lane_closure": "Partial or rolling closure",
+          "duration": "Minimal disruption",
+          "traffic_control": "Basic signage sufficient",
+          "alternate_route": "Not required",
+          "peak_hour_restrictions": "Can work during off-peak hours"
+        },
+        "source_image": "WhatsApp_Image_2026-02-04_at_19.15.04.jpeg",
+        "gps_location": {
+          "latitude": null,
+          "longitude": null
+        }
+      }
+    ],
+    "total_repair_cost": 785.16,
+    "total_repair_time_hours": 0.4,
+    "highest_priority": 4,
+    "most_severe": "minor",
+    "damaged_image_path": "output/damaged_images/a003_WhatsApp_Image_2026-02-04_at_19.15.04.jpg",
+    "detected_image_path": "output/detected_images/detected_a003_WhatsApp_Image_2026-02-04_at_19.15.04.jpg",
+    "thumbnail_path": "output/thumbnails/thumb_a003_WhatsApp_Image_2026-02-04_at_19.15.04.jpg"
+  },
+  {
+    "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpkfhntiio/WhatsApp_Image_2026-02-04_at_19.25.46.jpeg",
+    "filename": "WhatsApp_Image_2026-02-04_at_19.25.46.jpeg",
+    "has_damage": true,
+    "damage_count": 7,
+    "damage_types": [
+      "D40_Pothole"
+    ],
+    "confidence_scores": [
+      0.8867725729942322,
+      0.8212798237800598,
+      0.8063568472862244,
+      0.795050323009491,
+      0.7903006076812744,
+      0.7615776062011719,
+      0.7509135007858276
+    ],
+    "detections": [
+      {
+        "bbox": [
+          163.72755432128906,
+          0.0,
+          196.83924865722656,
+          105.06114959716797
+        ],
+        "confidence": 0.8867725729942322,
+        "damage_type": "D40_Pothole",
+        "class_id": 0
+      },
+      {
+        "bbox": [
+          55.88370132446289,
+          0.0,
+          100.353759765625,
+          110.49661254882812
+        ],
+        "confidence": 0.8212798237800598,
+        "damage_type": "D40_Pothole",
+        "class_id": 0
+      },
+      {
+        "bbox": [
+          297.7513732910156,
+          0.3967090845108032,
+          325.5453796386719,
+          90.37310791015625
+        ],
+        "confidence": 0.8063568472862244,
+        "damage_type": "D40_Pothole",
+        "class_id": 0
+      },
+      {
+        "bbox": [
+          231.24957275390625,
+          0.0,
+          263.8162536621094,
+          104.37039184570312
+        ],
+        "confidence": 0.795050323009491,
+        "damage_type": "D40_Pothole",
+        "class_id": 0
+      },
+      {
+        "bbox": [
+          90.60283660888672,
+          1.0963093042373657,
+          123.34886932373047,
+          92.83717346191406
+        ],
+        "confidence": 0.7903006076812744,
+        "damage_type": "D40_Pothole",
+        "class_id": 0
+      },
+      {
+        "bbox": [
+          332.8529357910156,
+          0.21631747484207153,
+          361.7234191894531,
+          80.98074340820312
+        ],
+        "confidence": 0.7615776062011719,
+        "damage_type": "D40_Pothole",
+        "class_id": 0
+      },
+      {
+        "bbox": [
+          256.6138916015625,
+          0.388899564743042,
+          284.7118225097656,
+          88.49386596679688
+        ],
+        "confidence": 0.7509135007858276,
+        "damage_type": "D40_Pothole",
+        "class_id": 0
+      }
+    ],
+    "latitude": null,
+    "longitude": null,
+    "image_info": {
+      "width": 435,
+      "height": 318,
+      "channels": 3,
+      "file_size": 64798,
+      "format": ".jpeg"
+    },
+    "timestamp": "2026-02-04T20:17:30.055523",
+    "detailed_damage_analysis": [
+      {
+        "damage_type": "D40_Pothole",
+        "severity": "severe",
+        "confidence": 0.8867725729942322,
+        "area_sqm": 0.35,
+        "bbox": [
+          163.72755432128906,
+          0.0,
+          196.83924865722656,
+          105.06114959716797
+        ],
+        "repair_cost": 2087.25,
+        "repair_time_hours": 1.4,
+        "repair_days": 1,
+        "priority": {
+          "level": 2,
+          "action": "URGENT",
+          "timeline": "1-2 weeks",
+          "risk": "Moderate safety risk"
+        },
+        "repair_method": "Saw cut and replace",
+        "materials_needed": "Full depth patch",
+        "crew_size": {
+          "total": 4,
+          "roles": {
+            "supervisor": 1,
+            "equipment_operator": 1,
+            "skilled_workers": 2,
+            "traffic_control": 1,
+            "safety_officer": 0
+          }
+        },
+        "equipment_needed": [
+          "Hand tools",
+          "Safety equipment",
+          "Traffic cones",
+          "Asphalt saw",
+          "Jackhammer",
+          "Compactor",
+          "Hot mix truck",
+          "Roller",
+          "Crack router"
+        ],
+        "safety_requirements": [
+          "High-visibility clothing",
+          "Hard hats",
+          "Safety glasses",
+          "Work zone setup",
+          "Traffic control plan",
+          "Flaggers",
+          "Temporary barriers",
+          "Warning signs",
+          "Emergency response plan"
+        ],
+        "weather_constraints": {
+          "temperature": {
+            "min": 40,
+            "max": 100,
+            "optimal": "50-85\u00b0F"
+          },
+          "conditions": [
+            "No precipitation during work",
+            "Dry surface required",
+            "Wind speed < 25 mph for sealants",
+            "No freezing conditions"
+          ],
+          "seasonal_notes": "Best performed in spring/summer/early fall"
+        },
+        "traffic_impact": {
+          "lane_closure": "Required",
+          "duration": "Full repair duration",
+          "traffic_control": "Flaggers and signs required",
+          "alternate_route": "Recommended for major repairs",
+          "peak_hour_restrictions": "Avoid 7-9 AM and 4-6 PM"
+        },
+        "source_image": "WhatsApp_Image_2026-02-04_at_19.25.46.jpeg",
+        "gps_location": {
+          "latitude": null,
+          "longitude": null
+        }
+      },
+      {
+        "damage_type": "D40_Pothole",
+        "severity": "severe",
+        "confidence": 0.8212798237800598,
+        "area_sqm": 0.49,
+        "bbox": [
+          55.88370132446289,
+          0.0,
+          100.353759765625,
+          110.49661254882812
+        ],
+        "repair_cost": 2948.27,
+        "repair_time_hours": 2.0,
+        "repair_days": 1,
+        "priority": {
+          "level": 2,
+          "action": "URGENT",
+          "timeline": "1-2 weeks",
+          "risk": "Moderate safety risk"
+        },
+        "repair_method": "Saw cut and replace",
+        "materials_needed": "Full depth patch",
+        "crew_size": {
+          "total": 4,
+          "roles": {
+            "supervisor": 1,
+            "equipment_operator": 1,
+            "skilled_workers": 2,
+            "traffic_control": 1,
+            "safety_officer": 0
+          }
+        },
+        "equipment_needed": [
+          "Hand tools",
+          "Safety equipment",
+          "Traffic cones",
+          "Asphalt saw",
+          "Jackhammer",
+          "Compactor",
+          "Hot mix truck",
+          "Roller",
+          "Crack router"
+        ],
+        "safety_requirements": [
+          "High-visibility clothing",
+          "Hard hats",
+          "Safety glasses",
+          "Work zone setup",
+          "Traffic control plan",
+          "Flaggers",
+          "Temporary barriers",
+          "Warning signs",
+          "Emergency response plan"
+        ],
+        "weather_constraints": {
+          "temperature": {
+            "min": 40,
+            "max": 100,
+            "optimal": "50-85\u00b0F"
+          },
+          "conditions": [
+            "No precipitation during work",
+            "Dry surface required",
+            "Wind speed < 25 mph for sealants",
+            "No freezing conditions"
+          ],
+          "seasonal_notes": "Best performed in spring/summer/early fall"
+        },
+        "traffic_impact": {
+          "lane_closure": "Required",
+          "duration": "Full repair duration",
+          "traffic_control": "Flaggers and signs required",
+          "alternate_route": "Recommended for major repairs",
+          "peak_hour_restrictions": "Avoid 7-9 AM and 4-6 PM"
+        },
+        "source_image": "WhatsApp_Image_2026-02-04_at_19.25.46.jpeg",
+        "gps_location": {
+          "latitude": null,
+          "longitude": null
+        }
+      },
+      {
+        "damage_type": "D40_Pothole",
+        "severity": "severe",
+        "confidence": 0.8063568472862244,
+        "area_sqm": 0.25,
+        "bbox": [
+          297.7513732910156,
+          0.3967090845108032,
+          325.5453796386719,
+          90.37310791015625
+        ],
+        "repair_cost": 1500.48,
+        "repair_time_hours": 1.0,
+        "repair_days": 1,
+        "priority": {
+          "level": 2,
+          "action": "URGENT",
+          "timeline": "1-2 weeks",
+          "risk": "Moderate safety risk"
+        },
+        "repair_method": "Saw cut and replace",
+        "materials_needed": "Full depth patch",
+        "crew_size": {
+          "total": 4,
+          "roles": {
+            "supervisor": 1,
+            "equipment_operator": 1,
+            "skilled_workers": 2,
+            "traffic_control": 1,
+            "safety_officer": 0
+          }
+        },
+        "equipment_needed": [
+          "Hand tools",
+          "Safety equipment",
+          "Traffic cones",
+          "Asphalt saw",
+          "Jackhammer",
+          "Compactor",
+          "Hot mix truck",
+          "Roller",
+          "Crack router"
+        ],
+        "safety_requirements": [
+          "High-visibility clothing",
+          "Hard hats",
+          "Safety glasses",
+          "Work zone setup",
+          "Traffic control plan",
+          "Flaggers",
+          "Temporary barriers",
+          "Warning signs",
+          "Emergency response plan"
+        ],
+        "weather_constraints": {
+          "temperature": {
+            "min": 40,
+            "max": 100,
+            "optimal": "50-85\u00b0F"
+          },
+          "conditions": [
+            "No precipitation during work",
+            "Dry surface required",
+            "Wind speed < 25 mph for sealants",
+            "No freezing conditions"
+          ],
+          "seasonal_notes": "Best performed in spring/summer/early fall"
+        },
+        "traffic_impact": {
+          "lane_closure": "Required",
+          "duration": "Full repair duration",
+          "traffic_control": "Flaggers and signs required",
+          "alternate_route": "Recommended for major repairs",
+          "peak_hour_restrictions": "Avoid 7-9 AM and 4-6 PM"
+        },
+        "source_image": "WhatsApp_Image_2026-02-04_at_19.25.46.jpeg",
+        "gps_location": {
+          "latitude": null,
+          "longitude": null
+        }
+      },
+      {
+        "damage_type": "D40_Pothole",
+        "severity": "moderate",
+        "confidence": 0.795050323009491,
+        "area_sqm": 0.34,
+        "bbox": [
+          231.24957275390625,
+          0.0,
+          263.8162536621094,
+          104.37039184570312
+        ],
+        "repair_cost": 1223.64,
+        "repair_time_hours": 0.7,
+        "repair_days": 1,
+        "priority": {
+          "level": 3,
+          "action": "SCHEDULED",
+          "timeline": "1-3 months",
+          "risk": "Low safety risk"
+        },
+        "repair_method": "Permanent patching",
+        "materials_needed": "Hot mix asphalt",
+        "crew_size": {
+          "total": 3,
+          "roles": {
+            "supervisor": 1,
+            "skilled_workers": 2,
+            "traffic_control": 1
+          }
+        },
+        "equipment_needed": [
+          "Hand tools",
+          "Safety equipment",
+          "Traffic cones",
+          "Crack sealing equipment",
+          "Cleaning tools"
+        ],
+        "safety_requirements": [
+          "High-visibility clothing",
+          "Hard hats",
+          "Safety glasses",
+          "Work zone setup",
+          "Basic traffic control",
+          "Warning signs"
+        ],
+        "weather_constraints": {
+          "temperature": {
+            "min": 40,
+            "max": 100,
+            "optimal": "50-85\u00b0F"
+          },
+          "conditions": [
+            "No precipitation during work",
+            "Dry surface required",
+            "Wind speed < 25 mph for sealants",
+            "No freezing conditions"
+          ],
+          "seasonal_notes": "Best performed in spring/summer/early fall"
+        },
+        "traffic_impact": {
+          "lane_closure": "Partial or rolling closure",
+          "duration": "Minimal disruption",
+          "traffic_control": "Basic signage sufficient",
+          "alternate_route": "Not required",
+          "peak_hour_restrictions": "Can work during off-peak hours"
+        },
+        "source_image": "WhatsApp_Image_2026-02-04_at_19.25.46.jpeg",
+        "gps_location": {
+          "latitude": null,
+          "longitude": null
+        }
+      },
+      {
+        "damage_type": "D40_Pothole",
+        "severity": "moderate",
+        "confidence": 0.7903006076812744,
+        "area_sqm": 0.3,
+        "bbox": [
+          90.60283660888672,
+          1.0963093042373657,
+          123.34886932373047,
+          92.83717346191406
+        ],
+        "repair_cost": 1081.49,
+        "repair_time_hours": 0.6,
+        "repair_days": 1,
+        "priority": {
+          "level": 3,
+          "action": "SCHEDULED",
+          "timeline": "1-3 months",
+          "risk": "Low safety risk"
+        },
+        "repair_method": "Permanent patching",
+        "materials_needed": "Hot mix asphalt",
+        "crew_size": {
+          "total": 3,
+          "roles": {
+            "supervisor": 1,
+            "skilled_workers": 2,
+            "traffic_control": 1
+          }
+        },
+        "equipment_needed": [
+          "Hand tools",
+          "Safety equipment",
+          "Traffic cones",
+          "Crack sealing equipment",
+          "Cleaning tools"
+        ],
+        "safety_requirements": [
+          "High-visibility clothing",
+          "Hard hats",
+          "Safety glasses",
+          "Work zone setup",
+          "Basic traffic control",
+          "Warning signs"
+        ],
+        "weather_constraints": {
+          "temperature": {
+            "min": 40,
+            "max": 100,
+            "optimal": "50-85\u00b0F"
+          },
+          "conditions": [
+            "No precipitation during work",
+            "Dry surface required",
+            "Wind speed < 25 mph for sealants",
+            "No freezing conditions"
+          ],
+          "seasonal_notes": "Best performed in spring/summer/early fall"
+        },
+        "traffic_impact": {
+          "lane_closure": "Partial or rolling closure",
+          "duration": "Minimal disruption",
+          "traffic_control": "Basic signage sufficient",
+          "alternate_route": "Not required",
+          "peak_hour_restrictions": "Can work during off-peak hours"
+        },
+        "source_image": "WhatsApp_Image_2026-02-04_at_19.25.46.jpeg",
+        "gps_location": {
+          "latitude": null,
+          "longitude": null
+        }
+      },
+      {
+        "damage_type": "D40_Pothole",
+        "severity": "moderate",
+        "confidence": 0.7615776062011719,
+        "area_sqm": 0.23,
+        "bbox": [
+          332.8529357910156,
+          0.21631747484207153,
+          361.7234191894531,
+          80.98074340820312
+        ],
+        "repair_cost": 839.41,
+        "repair_time_hours": 0.5,
+        "repair_days": 1,
+        "priority": {
+          "level": 3,
+          "action": "SCHEDULED",
+          "timeline": "1-3 months",
+          "risk": "Low safety risk"
+        },
+        "repair_method": "Permanent patching",
+        "materials_needed": "Hot mix asphalt",
+        "crew_size": {
+          "total": 3,
+          "roles": {
+            "supervisor": 1,
+            "skilled_workers": 2,
+            "traffic_control": 1
+          }
+        },
+        "equipment_needed": [
+          "Hand tools",
+          "Safety equipment",
+          "Traffic cones",
+          "Crack sealing equipment",
+          "Cleaning tools"
+        ],
+        "safety_requirements": [
+          "High-visibility clothing",
+          "Hard hats",
+          "Safety glasses",
+          "Work zone setup",
+          "Basic traffic control",
+          "Warning signs"
+        ],
+        "weather_constraints": {
+          "temperature": {
+            "min": 40,
+            "max": 100,
+            "optimal": "50-85\u00b0F"
+          },
+          "conditions": [
+            "No precipitation during work",
+            "Dry surface required",
+            "Wind speed < 25 mph for sealants",
+            "No freezing conditions"
+          ],
+          "seasonal_notes": "Best performed in spring/summer/early fall"
+        },
+        "traffic_impact": {
+          "lane_closure": "Partial or rolling closure",
+          "duration": "Minimal disruption",
+          "traffic_control": "Basic signage sufficient",
+          "alternate_route": "Not required",
+          "peak_hour_restrictions": "Can work during off-peak hours"
+        },
+        "source_image": "WhatsApp_Image_2026-02-04_at_19.25.46.jpeg",
+        "gps_location": {
+          "latitude": null,
+          "longitude": null
+        }
+      },
+      {
+        "damage_type": "D40_Pothole",
+        "severity": "moderate",
+        "confidence": 0.7509135007858276,
+        "area_sqm": 0.25,
+        "bbox": [
+          256.6138916015625,
+          0.388899564743042,
+          284.7118225097656,
+          88.49386596679688
+        ],
+        "repair_cost": 891.2,
+        "repair_time_hours": 0.5,
+        "repair_days": 1,
+        "priority": {
+          "level": 3,
+          "action": "SCHEDULED",
+          "timeline": "1-3 months",
+          "risk": "Low safety risk"
+        },
+        "repair_method": "Permanent patching",
+        "materials_needed": "Hot mix asphalt",
+        "crew_size": {
+          "total": 3,
+          "roles": {
+            "supervisor": 1,
+            "skilled_workers": 2,
+            "traffic_control": 1
+          }
+        },
+        "equipment_needed": [
+          "Hand tools",
+          "Safety equipment",
+          "Traffic cones",
+          "Crack sealing equipment",
+          "Cleaning tools"
+        ],
+        "safety_requirements": [
+          "High-visibility clothing",
+          "Hard hats",
+          "Safety glasses",
+          "Work zone setup",
+          "Basic traffic control",
+          "Warning signs"
+        ],
+        "weather_constraints": {
+          "temperature": {
+            "min": 40,
+            "max": 100,
+            "optimal": "50-85\u00b0F"
+          },
+          "conditions": [
+            "No precipitation during work",
+            "Dry surface required",
+            "Wind speed < 25 mph for sealants",
+            "No freezing conditions"
+          ],
+          "seasonal_notes": "Best performed in spring/summer/early fall"
+        },
+        "traffic_impact": {
+          "lane_closure": "Partial or rolling closure",
+          "duration": "Minimal disruption",
+          "traffic_control": "Basic signage sufficient",
+          "alternate_route": "Not required",
+          "peak_hour_restrictions": "Can work during off-peak hours"
+        },
+        "source_image": "WhatsApp_Image_2026-02-04_at_19.25.46.jpeg",
+        "gps_location": {
+          "latitude": null,
+          "longitude": null
+        }
+      }
+    ],
+    "total_repair_cost": 10571.740000000002,
+    "total_repair_time_hours": 6.7,
+    "highest_priority": 2,
+    "most_severe": "severe",
+    "damaged_image_path": "output/damaged_images/a003_WhatsApp_Image_2026-02-04_at_19.25.46.jpg",
+    "detected_image_path": "output/detected_images/detected_a003_WhatsApp_Image_2026-02-04_at_19.25.46.jpg",
+    "thumbnail_path": "output/thumbnails/thumb_a003_WhatsApp_Image_2026-02-04_at_19.25.46.jpg"
+  },
+  {
+    "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpkfhntiio/WhatsApp_Image_2026-02-04_at_19.15.05_3.jpeg",
+    "filename": "WhatsApp_Image_2026-02-04_at_19.15.05_3.jpeg",
+    "has_damage": true,
+    "damage_count": 1,
+    "damage_types": [
+      "D10_Transverse_Crack"
+    ],
+    "confidence_scores": [
+      0.39777496457099915
+    ],
+    "detections": [
+      {
+        "bbox": [
+          160.22933959960938,
+          244.24107360839844,
+          211.30581665039062,
+          320.34808349609375
+        ],
+        "confidence": 0.39777496457099915,
+        "damage_type": "D10_Transverse_Crack",
+        "class_id": 2
+      }
+    ],
+    "latitude": null,
+    "longitude": null,
+    "image_info": {
+      "width": 570,
+      "height": 375,
+      "channels": 3,
+      "file_size": 61027,
+      "format": ".jpeg"
+    },
+    "timestamp": "2026-02-04T20:17:30.099093",
+    "detailed_damage_analysis": [
+      {
+        "damage_type": "D10_Transverse_Crack",
+        "severity": "minor",
+        "confidence": 0.39777496457099915,
+        "area_sqm": 0.39,
+        "bbox": [
+          160.22933959960938,
+          244.24107360839844,
+          211.30581665039062,
+          320.34808349609375
+        ],
+        "repair_cost": 559.77,
+        "repair_time_hours": 0.2,
+        "repair_days": 1,
+        "priority": {
+          "level": 4,
+          "action": "PREVENTIVE",
+          "timeline": "3-6 months",
+          "risk": "Minimal risk"
+        },
+        "repair_method": "Surface sealing",
+        "materials_needed": "Crack sealing compound",
+        "crew_size": {
+          "total": 2,
+          "roles": {
+            "supervisor": 1,
+            "skilled_workers": 1,
+            "traffic_control": 0
+          }
+        },
+        "equipment_needed": [
+          "Hand tools",
+          "Safety equipment",
+          "Traffic cones",
+          "Crack sealing equipment",
+          "Cleaning tools"
+        ],
+        "safety_requirements": [
+          "High-visibility clothing",
+          "Hard hats",
+          "Safety glasses",
+          "Work zone setup",
+          "Basic traffic control",
+          "Warning signs"
+        ],
+        "weather_constraints": {
+          "temperature": {
+            "min": 40,
+            "max": 100,
+            "optimal": "50-85\u00b0F"
+          },
+          "conditions": [
+            "No precipitation during work",
+            "Dry surface required",
+            "Wind speed < 25 mph for sealants",
+            "No freezing conditions"
+          ],
+          "seasonal_notes": "Best performed in spring/summer/early fall"
+        },
+        "traffic_impact": {
+          "lane_closure": "Partial or rolling closure",
+          "duration": "Minimal disruption",
+          "traffic_control": "Basic signage sufficient",
+          "alternate_route": "Not required",
+          "peak_hour_restrictions": "Can work during off-peak hours"
+        },
+        "source_image": "WhatsApp_Image_2026-02-04_at_19.15.05_3.jpeg",
+        "gps_location": {
+          "latitude": null,
+          "longitude": null
+        }
+      }
+    ],
+    "total_repair_cost": 559.77,
+    "total_repair_time_hours": 0.2,
+    "highest_priority": 4,
+    "most_severe": "minor",
+    "damaged_image_path": "output/damaged_images/a003_WhatsApp_Image_2026-02-04_at_19.15.05_3.jpg",
+    "detected_image_path": "output/detected_images/detected_a003_WhatsApp_Image_2026-02-04_at_19.15.05_3.jpg",
+    "thumbnail_path": "output/thumbnails/thumb_a003_WhatsApp_Image_2026-02-04_at_19.15.05_3.jpg"
+  }
+];
+        
+        // Show detailed damage modal
+        function showDamageModal(index) {
+            const damage = damageData[index];
+            const modalBody = document.getElementById('damageModalBody');
+            
+            // Fix image paths for modal display - use Flask routes
+            let originalImagePath = damage.damaged_image_path || damage.detected_image_path;
+            let detectedImagePath = damage.detected_image_path;
+            
+            // Ensure paths start with / for Flask routes
+            if (originalImagePath && !originalImagePath.startsWith('/')) {
+                originalImagePath = '/' + originalImagePath;
+            }
+            if (detectedImagePath && !detectedImagePath.startsWith('/')) {
+                detectedImagePath = '/' + detectedImagePath;
+            }
+            
+            let detailsHtml = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Original Image</h6>
+                        <img src="${originalImagePath}" 
+                             class="img-fluid rounded" 
+                             onclick="showImageModal(this.src)"
+                             style="cursor: pointer;"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='">
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Detected Damages</h6>
+                        <img src="${detectedImagePath}" 
+                             class="img-fluid rounded"
+                             onclick="showImageModal(this.src)"
+                             style="cursor: pointer;"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='">
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h6>Location Information</h6>
+                        <div class="alert alert-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <strong>Location:</strong> ${damage.latitude && damage.longitude ? 
+                                `GPS Coordinates: ${damage.latitude.toFixed(6)}, ${damage.longitude.toFixed(6)}` : 
+                                `Area: ${'Kompally'}`
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h6>Repair Analysis</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Damage Type</th>
+                                        <th>Severity</th>
+                                        <th>Area (m²)</th>
+                                        <th>Cost (₹)</th>
+                                        <th>Time</th>
+                                        <th>Method</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+            `;
+            
+            if (damage.detailed_damage_analysis) {
+                damage.detailed_damage_analysis.forEach(analysis => {
+                    detailsHtml += `
+                                    <tr>
+                                        <td>${analysis.damage_type.replace(/_/g, ' ')}</td>
+                                        <td><span class="badge severity-${analysis.severity}">${analysis.severity}</span></td>
+                                        <td>${analysis.area_sqm}</td>
+                                        <td>₹${analysis.repair_cost.toFixed(0)}</td>
+                                        <td>${analysis.repair_time_hours}h</td>
+                                        <td><small>${analysis.repair_method}</small></td>
+                                    </tr>
+                    `;
+                });
+            }
+            
+            detailsHtml += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modalBody.innerHTML = detailsHtml;
+            new bootstrap.Modal(document.getElementById('damageModal')).show();
+        }
+        
+        // Show image in modal
+        function showImageModal(imageSrc) {
+            document.getElementById('modalImage').src = imageSrc;
+            new bootstrap.Modal(document.getElementById('imageModal')).show();
+        }
+    </script>
+</body>
+</html>
+        

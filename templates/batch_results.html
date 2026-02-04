@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+
+{% block title %}Survey Results - Road Damage Detection{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="display-5">
+                <i class="fas fa-clipboard-list"></i> Survey Results
+            </h1>
+            <a href="/batch" class="btn btn-primary">
+                <i class="fas fa-plus"></i> New Survey
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Summary Statistics -->
+<div class="row mb-4" id="summaryStats">
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-helicopter fa-2x mb-2"></i>
+                <h3 id="totalSurveys">-</h3>
+                <p class="mb-0">Total Surveys</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-images fa-2x mb-2"></i>
+                <h3 id="totalImages">-</h3>
+                <p class="mb-0">Images Processed</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+                <h3 id="totalDamaged">-</h3>
+                <p class="mb-0">Damaged Roads</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-percentage fa-2x mb-2"></i>
+                <h3 id="avgDamageRate">-</h3>
+                <p class="mb-0">Avg Damage Rate</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Surveys Table -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-table"></i> Survey History</h5>
+                <button class="btn btn-sm btn-outline-primary" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="surveysTable">
+                        <thead>
+                            <tr>
+                                <th>Survey ID</th>
+                                <th>Flight Name</th>
+                                <th>Date</th>
+                                <th>Images</th>
+                                <th>Damaged</th>
+                                <th>Clean</th>
+                                <th>Damage Rate</th>
+                                <th>Confidence</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="surveysTableBody">
+                            <tr>
+                                <td colspan="9" class="text-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Survey Detail Modal -->
+<div class="modal fade" id="surveyModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Survey Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="surveyModalBody">
+                <!-- Survey details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="viewFullReportBtn">
+                    <i class="fas fa-external-link-alt"></i> View Full Report
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let surveys = [];
+let currentSurveyUrl = '';
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadSurveyData();
+});
+
+function loadSurveyData() {
+    fetch('/api/batch-reports')
+        .then(response => response.json())
+        .then(data => {
+            surveys = data;
+            updateSummaryStats(surveys);
+            updateSurveysTable(surveys);
+        })
+        .catch(error => {
+            console.error('Error loading survey data:', error);
+            document.getElementById('surveysTableBody').innerHTML = 
+                '<tr><td colspan="9" class="text-center text-danger">Error loading data</td></tr>';
+        });
+}
+
+function updateSummaryStats(surveys) {
+    const totalSurveys = surveys.length;
+    const totalImages = surveys.reduce((sum, survey) => sum + survey.total_images, 0);
+    const totalDamaged = surveys.reduce((sum, survey) => sum + survey.damaged_count, 0);
+    const avgDamageRate = surveys.length > 0 ? 
+        surveys.reduce((sum, survey) => sum + survey.damage_percentage, 0) / surveys.length : 0;
+    
+    document.getElementById('totalSurveys').textContent = totalSurveys;
+    document.getElementById('totalImages').textContent = totalImages.toLocaleString();
+    document.getElementById('totalDamaged').textContent = totalDamaged.toLocaleString();
+    document.getElementById('avgDamageRate').textContent = avgDamageRate.toFixed(1) + '%';
+}
+
+function updateSurveysTable(surveys) {
+    const tbody = document.getElementById('surveysTableBody');
+    
+    if (surveys.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center">No surveys found</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = surveys.map(survey => `
+        <tr>
+            <td><strong>#${survey.id}</strong></td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-helicopter text-primary me-2"></i>
+                    ${survey.flight_name}
+                </div>
+            </td>
+            <td>${new Date(survey.processing_timestamp).toLocaleDateString()}</td>
+            <td>
+                <span class="badge bg-info">${survey.total_images}</span>
+            </td>
+            <td>
+                <span class="badge bg-danger">${survey.damaged_count}</span>
+            </td>
+            <td>
+                <span class="badge bg-success">${survey.clean_count}</span>
+            </td>
+            <td>
+                <div class="progress" style="height: 20px; min-width: 80px;">
+                    <div class="progress-bar ${getDamageRateColor(survey.damage_percentage)}" 
+                         role="progressbar" 
+                         style="width: ${survey.damage_percentage}%"
+                         title="${survey.damage_percentage.toFixed(1)}%">
+                        ${survey.damage_percentage.toFixed(1)}%
+                    </div>
+                </div>
+            </td>
+            <td>
+                <small class="text-muted">${survey.confidence_threshold}</small>
+            </td>
+            <td>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-sm btn-outline-primary" 
+                            onclick="viewSurvey(${survey.id})" 
+                            title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-success" 
+                            onclick="openReport('${survey.report_url}')" 
+                            title="View Report">
+                        <i class="fas fa-external-link-alt"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function getDamageRateColor(percentage) {
+    if (percentage < 10) return 'bg-success';
+    if (percentage < 25) return 'bg-warning';
+    if (percentage < 50) return 'bg-orange';
+    return 'bg-danger';
+}
+
+function viewSurvey(surveyId) {
+    const survey = surveys.find(s => s.id === surveyId);
+    if (!survey) return;
+    
+    currentSurveyUrl = survey.report_url;
+    
+    const modalBody = document.getElementById('surveyModalBody');
+    
+    const modalContent = `
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h6>Survey Information</h6>
+                <table class="table table-sm">
+                    <tr><td><strong>Survey ID:</strong></td><td>#${survey.id}</td></tr>
+                    <tr><td><strong>Flight Name:</strong></td><td>${survey.flight_name}</td></tr>
+                    <tr><td><strong>Processing Date:</strong></td><td>${new Date(survey.processing_timestamp).toLocaleString()}</td></tr>
+                    <tr><td><strong>Confidence Threshold:</strong></td><td>${survey.confidence_threshold}</td></tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h6>Results Summary</h6>
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div class="border rounded p-2">
+                            <h4 class="text-primary mb-0">${survey.total_images}</h4>
+                            <small>Total Images</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="border rounded p-2">
+                            <h4 class="text-danger mb-0">${survey.damaged_count}</h4>
+                            <small>Damaged</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="border rounded p-2">
+                            <h4 class="text-success mb-0">${survey.clean_count}</h4>
+                            <small>Clean</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <h6>Damage Analysis</h6>
+                <div class="progress mb-3" style="height: 30px;">
+                    <div class="progress-bar bg-danger" 
+                         role="progressbar" 
+                         style="width: ${survey.damage_percentage}%">
+                        ${survey.damage_percentage.toFixed(1)}% Damaged
+                    </div>
+                    <div class="progress-bar bg-success" 
+                         role="progressbar" 
+                         style="width: ${(100 - survey.damage_percentage)}%">
+                        ${(100 - survey.damage_percentage).toFixed(1)}% Clean
+                    </div>
+                </div>
+                
+                <div class="alert alert-info">
+                    <h6><i class="fas fa-info-circle"></i> Survey Analysis</h6>
+                    <p class="mb-0">
+                        This survey processed <strong>${survey.total_images}</strong> drone images and found 
+                        <strong>${survey.damaged_count}</strong> images containing road damage 
+                        (${survey.damage_percentage.toFixed(1)}% damage rate).
+                        ${survey.damage_percentage > 25 ? 
+                            'This indicates significant infrastructure issues that require attention.' :
+                            survey.damage_percentage > 10 ?
+                            'This shows moderate damage levels that should be monitored.' :
+                            'This indicates the road infrastructure is in good condition.'
+                        }
+                    </p>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    modalBody.innerHTML = modalContent;
+    
+    // Set up view report button
+    document.getElementById('viewFullReportBtn').onclick = function() {
+        openReport(currentSurveyUrl);
+    };
+    
+    new bootstrap.Modal(document.getElementById('surveyModal')).show();
+}
+
+function openReport(reportUrl) {
+    window.open(reportUrl, '_blank');
+}
+
+function refreshData() {
+    loadSurveyData();
+}
+
+// Auto-refresh every 30 seconds
+setInterval(refreshData, 30000);
+</script>
+
+<style>
+.bg-orange {
+    background-color: #fd7e14 !important;
+}
+
+.progress {
+    border-radius: 10px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+
+.stats-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    transition: transform 0.2s;
+}
+
+.stats-card:hover {
+    transform: translateY(-2px);
+}
+</style>
+{% endblock %}

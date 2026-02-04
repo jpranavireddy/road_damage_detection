@@ -1,0 +1,39 @@
+{
+  "summary": {
+    "flight_name": "doolapally road hyderabad",
+    "input_folder": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpt24cb5s0",
+    "processing_timestamp": "2026-01-29T20:38:25.977216",
+    "total_images": 1,
+    "damaged_count": 0,
+    "clean_count": 1,
+    "error_count": 0,
+    "damage_percentage": 0.0,
+    "clean_percentage": 100.0,
+    "total_damages_detected": 0,
+    "damage_type_statistics": {},
+    "average_confidence": 0,
+    "confidence_threshold_used": 0.3
+  },
+  "detailed_results": [
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpt24cb5s0/images.jpeg",
+      "filename": "images.jpeg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 183,
+        "height": 275,
+        "channels": 3,
+        "file_size": 5369,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T20:38:25.976413",
+      "clean_image_path": "output/clean_images/doolapally road hyderabad_images.jpg"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "summary": {
+    "flight_name": "Test_Image_Display",
+    "input_folder": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmp8t94roc2",
+    "processing_timestamp": "2026-02-04T20:14:20.376327",
+    "total_images": 3,
+    "damaged_count": 0,
+    "clean_count": 3,
+    "error_count": 0,
+    "damage_percentage": 0.0,
+    "clean_percentage": 100.0,
+    "total_damages_detected": 0,
+    "damage_type_statistics": {},
+    "average_confidence": 0,
+    "confidence_threshold_used": 0.1
+  },
+  "area_analysis": {
+    "area_name": "Test_Image_Display",
+    "survey_date": "2026-02-04T20:14:20.376341",
+    "overall_condition": "EXCELLENT",
+    "condition_description": "No damage detected - road in excellent condition",
+    "summary_statistics": {
+      "total_images_surveyed": 3,
+      "damaged_locations": 0,
+      "damage_rate_percentage": 0.0,
+      "total_damaged_area_sqm": 0.0,
+      "total_repair_cost_usd": 0.0,
+      "total_repair_time_hours": 0.0,
+      "estimated_project_duration_days": 0
+    },
+    "recommendations": [
+      "Continue regular monitoring",
+      "Schedule preventive maintenance in 6-12 months",
+      "Monitor for early signs of wear",
+      "Maintain current maintenance practices"
+    ],
+    "next_inspection": "2026-08-03",
+    "maintenance_schedule": {
+      "preventive_sealing": "12-18 months",
+      "crack_monitoring": "6 months",
+      "surface_treatment": "3-5 years"
+    }
+  },
+  "detailed_results": [
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmp8t94roc2/drone_img_002_lat40.713794_lon-74.005243_20260123_064746.jpg",
+      "filename": "drone_img_002_lat40.713794_lon-74.005243_20260123_064746.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.713794,
+      "longitude": -74.005243,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 213083,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-02-04T20:14:20.253555",
+      "clean_image_path": "output/clean_images/Test_Image_Display_drone_img_002_lat40.713794_lon-74.005243_20260123_064746.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmp8t94roc2/drone_img_001_lat40.713094_lon-74.006315_20260109_040346.jpg",
+      "filename": "drone_img_001_lat40.713094_lon-74.006315_20260109_040346.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.713094,
+      "longitude": -74.006315,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 213200,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-02-04T20:14:20.314329",
+      "clean_image_path": "output/clean_images/Test_Image_Display_drone_img_001_lat40.713094_lon-74.006315_20260109_040346.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmp8t94roc2/drone_img_003_lat40.715101_lon-74.003536_20251231_061746.jpg",
+      "filename": "drone_img_003_lat40.715101_lon-74.003536_20251231_061746.jpg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": 40.715101,
+      "longitude": -74.003536,
+      "image_info": {
+        "width": 640,
+        "height": 640,
+        "channels": 3,
+        "file_size": 213078,
+        "format": ".jpg"
+      },
+      "timestamp": "2026-02-04T20:14:20.375798",
+      "clean_image_path": "output/clean_images/Test_Image_Display_drone_img_003_lat40.715101_lon-74.003536_20251231_061746.jpg"
+    }
+  ]
+}

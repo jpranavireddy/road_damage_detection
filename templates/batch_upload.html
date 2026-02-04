@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+
+{% block title %}Batch Processing - Road Damage Detection{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 text-primary">
+                <i class="fas fa-layer-group"></i> Batch Road Damage Detection
+            </h1>
+            <p class="lead">Upload a folder of drone images to automatically detect and analyze road damage</p>
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                <strong>How it works:</strong> Upload multiple road images from your drone survey. 
+                The system will analyze all images and create a detailed report showing only the damaged roads with their locations.
+            </div>
+        </div>
+
+        <!-- Upload Form -->
+        <div class="card">
+            <div class="card-body">
+                <form id="batchUploadForm" enctype="multipart/form-data">
+                    <!-- Flight Information -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="areaName" class="form-label">
+                                <i class="fas fa-map"></i> Area/Location Name
+                            </label>
+                            <input type="text" class="form-control" id="areaName" name="area_name" 
+                                   placeholder="e.g., Highway A1 Section 5, Downtown Main Street" required>
+                            <small class="text-muted">This will be the main title of your damage report</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="flightName" class="form-label">
+                                <i class="fas fa-helicopter"></i> Survey ID/Flight Name
+                            </label>
+                            <input type="text" class="form-control" id="flightName" name="flight_name" 
+                                   placeholder="e.g., Survey_2024_001" required>
+                        </div>
+                    </div>
+
+                    <!-- Folder Upload Area -->
+                    <div class="upload-area mb-4" id="folderUploadArea">
+                        <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+                        <h5>Select Drone Images Folder</h5>
+                        <p class="text-muted">Choose multiple images from your drone survey</p>
+                        <input type="file" id="folderInput" name="folder" multiple accept="image/*" 
+                               webkitdirectory directory style="display: none;">
+                        <input type="file" id="filesInput" name="folder" multiple accept="image/*" style="display: none;">
+                        <div class="mt-3">
+                            <button type="button" class="btn btn-outline-primary me-2" onclick="selectFolder()">
+                                <i class="fas fa-folder"></i> Select Folder
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="selectFiles()">
+                                <i class="fas fa-images"></i> Select Multiple Files
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Selected Files Preview -->
+                    <div id="filesPreview" class="mb-4" style="display: none;">
+                        <h6>Selected Images:</h6>
+                        <div id="filesList" class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
+                            <!-- Files will be listed here -->
+                        </div>
+                        <div class="mt-2">
+                            <span id="filesCount" class="badge bg-primary">0 files selected</span>
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2" onclick="clearFiles()">
+                                <i class="fas fa-times"></i> Clear Selection
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Processing Options -->
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <h6><i class="fas fa-cogs"></i> Processing Options</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="generateWebReport" checked>
+                                        <label class="form-check-label" for="generateWebReport">
+                                            Generate interactive web report
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="includeCleanImages">
+                                        <label class="form-check-label" for="includeCleanImages">
+                                            Include clean road images in report
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg" id="processBtn" disabled>
+                            <i class="fas fa-play"></i> Start Batch Processing
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Processing Indicator -->
+                <div class="loading text-center mt-4" id="processingIndicator">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Processing...</span>
+                    </div>
+                    <h5 class="mt-3">Processing Images...</h5>
+                    <p id="processingStatus">Analyzing drone images for road damage...</p>
+                    <div class="progress mt-3" style="height: 25px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                             role="progressbar" style="width: 0%" id="processingProgress">
+                            0%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Preview -->
+        <div id="resultsPreview" class="mt-4" style="display: none;">
+            <!-- Results will be shown here -->
+        </div>
+    </div>
+</div>
+
+<!-- Processing Complete Modal -->
+<div class="modal fade" id="processingCompleteModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-check-circle"></i> Processing Complete!
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="processingResults">
+                <!-- Results will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="viewReportBtn">
+                    <i class="fas fa-eye"></i> View Detailed Report
+                </button>
+                <a href="/batch-results" class="btn btn-success">
+                    <i class="fas fa-list"></i> View All Surveys
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let selectedFiles = [];
+let reportUrl = '';
+
+function selectFolder() {
+    document.getElementById('folderInput').click();
+}
+
+function selectFiles() {
+    document.getElementById('filesInput').click();
+}
+
+function clearFiles() {
+    selectedFiles = [];
+    document.getElementById('folderInput').value = '';
+    document.getElementById('filesInput').value = '';
+    document.getElementById('filesPreview').style.display = 'none';
+    document.getElementById('processBtn').disabled = true;
+}
+
+function updateFilesPreview(files) {
+    selectedFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+    
+    if (selectedFiles.length === 0) {
+        document.getElementById('filesPreview').style.display = 'none';
+        document.getElementById('processBtn').disabled = true;
+        return;
+    }
+    
+    const filesList = document.getElementById('filesList');
+    const filesCount = document.getElementById('filesCount');
+    
+    filesList.innerHTML = '';
+    selectedFiles.forEach((file, index) => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'border-bottom pb-1 mb-1';
+        fileItem.innerHTML = `
+            <small class="text-muted">${index + 1}.</small> 
+            <strong>${file.name}</strong> 
+            <span class="text-muted">(${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+        `;
+        filesList.appendChild(fileItem);
+    });
+    
+    filesCount.textContent = `${selectedFiles.length} image files selected`;
+    document.getElementById('filesPreview').style.display = 'block';
+    document.getElementById('processBtn').disabled = false;
+}
+
+// Event listeners for file inputs
+document.getElementById('folderInput').addEventListener('change', function(e) {
+    updateFilesPreview(e.target.files);
+});
+
+document.getElementById('filesInput').addEventListener('change', function(e) {
+    updateFilesPreview(e.target.files);
+});
+
+// Form submission
+document.getElementById('batchUploadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    if (selectedFiles.length === 0) {
+        alert('Please select images first.');
+        return;
+    }
+    
+    const formData = new FormData();
+    
+    // Add form fields
+    formData.append('area_name', document.getElementById('areaName').value);
+    formData.append('flight_name', document.getElementById('flightName').value);
+    formData.append('confidence_threshold', '0.3'); // Fixed confidence threshold
+    
+    // Add selected files
+    selectedFiles.forEach(file => {
+        formData.append('folder', file);
+    });
+    
+    // Show processing indicator
+    document.getElementById('processingIndicator').classList.add('show');
+    document.getElementById('processBtn').disabled = true;
+    
+    // Simulate progress (since we can't get real progress from server)
+    let progress = 0;
+    const progressInterval = setInterval(() => {
+        progress += Math.random() * 10;
+        if (progress > 90) progress = 90;
+        
+        const progressBar = document.getElementById('processingProgress');
+        progressBar.style.width = progress + '%';
+        progressBar.textContent = Math.round(progress) + '%';
+        
+        // Update status messages
+        if (progress < 30) {
+            document.getElementById('processingStatus').textContent = 'Uploading and preparing images...';
+        } else if (progress < 60) {
+            document.getElementById('processingStatus').textContent = 'Running AI damage detection...';
+        } else if (progress < 90) {
+            document.getElementById('processingStatus').textContent = 'Generating reports and organizing results...';
+        }
+    }, 500);
+    
+    // Submit form
+    fetch('/api/batch-upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        clearInterval(progressInterval);
+        
+        // Complete progress
+        const progressBar = document.getElementById('processingProgress');
+        progressBar.style.width = '100%';
+        progressBar.textContent = '100%';
+        progressBar.classList.remove('progress-bar-animated');
+        progressBar.classList.add('bg-success');
+        
+        document.getElementById('processingIndicator').classList.remove('show');
+        document.getElementById('processBtn').disabled = false;
+        
+        if (data.success) {
+            showResults(data);
+        } else {
+            alert('Error: ' + (data.error || 'Unknown error occurred'));
+        }
+    })
+    .catch(error => {
+        clearInterval(progressInterval);
+        console.error('Error:', error);
+        document.getElementById('processingIndicator').classList.remove('show');
+        document.getElementById('processBtn').disabled = false;
+        alert('Error processing images. Please try again.');
+    });
+});
+
+function showResults(data) {
+    const summary = data.summary;
+    reportUrl = data.html_report_url;
+    
+    const resultsHtml = `
+        <div class="row text-center mb-4">
+            <div class="col-md-3">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <h3 class="text-primary">${summary.total_images}</h3>
+                        <p class="mb-0">Total Images</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-danger">
+                    <div class="card-body">
+                        <h3 class="text-danger">${summary.damaged_count}</h3>
+                        <p class="mb-0">Damaged Roads</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-success">
+                    <div class="card-body">
+                        <h3 class="text-success">${summary.clean_count}</h3>
+                        <p class="mb-0">Clean Roads</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-warning">
+                    <div class="card-body">
+                        <h3 class="text-warning">${summary.total_damages_detected}</h3>
+                        <p class="mb-0">Total Damages</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="alert alert-success">
+            <h5><i class="fas fa-check-circle"></i> Processing Summary</h5>
+            <p><strong>Flight:</strong> ${summary.flight_name}</p>
+            <p><strong>Damage Rate:</strong> ${summary.damage_percentage.toFixed(1)}% of surveyed roads have damage</p>
+            <p><strong>Processing Time:</strong> ${new Date(summary.processing_timestamp).toLocaleString()}</p>
+        </div>
+    `;
+    
+    document.getElementById('processingResults').innerHTML = resultsHtml;
+    
+    // Set up view report button
+    document.getElementById('viewReportBtn').onclick = function() {
+        window.open(reportUrl, '_blank');
+    };
+    
+    // Show modal
+    new bootstrap.Modal(document.getElementById('processingCompleteModal')).show();
+}
+</script>
+{% endblock %}

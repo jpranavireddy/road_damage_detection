@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Image - Road Damage Detection{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 text-primary">
+                <i class="fas fa-camera"></i> Road Damage Detection
+            </h1>
+            <p class="lead">Upload road images to detect and analyze damage using AI-powered deep learning</p>
+        </div>
+
+        <!-- Upload Form -->
+        <div class="card">
+            <div class="card-body">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <!-- Image Upload Area -->
+                    <div class="upload-area mb-4" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                        <h5>Drop your road image here or click to browse</h5>
+                        <p class="text-muted">Supports JPG, PNG, JPEG formats (Max 16MB)</p>
+                        <input type="file" id="imageInput" name="image" accept="image/*" style="display: none;">
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div id="imagePreview" class="mb-4" style="display: none;">
+                        <h6>Selected Image:</h6>
+                        <img id="previewImg" src="" alt="Preview" class="img-fluid rounded" style="max-height: 300px;">
+                    </div>
+
+                    <!-- Location Information -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="latitude" class="form-label">
+                                <i class="fas fa-map-marker-alt"></i> Latitude
+                            </label>
+                            <input type="number" class="form-control" id="latitude" name="latitude" 
+                                   step="any" placeholder="e.g., 40.7128">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="longitude" class="form-label">
+                                <i class="fas fa-map-marker-alt"></i> Longitude
+                            </label>
+                            <input type="number" class="form-control" id="longitude" name="longitude" 
+                                   step="any" placeholder="e.g., -74.0060">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="locationName" class="form-label">
+                            <i class="fas fa-map"></i> Location Name (Optional)
+                        </label>
+                        <input type="text" class="form-control" id="locationName" name="location_name" 
+                               placeholder="e.g., Main Street, Downtown">
+                    </div>
+
+                    <!-- Get Current Location Button -->
+                    <div class="mb-4 text-center">
+                        <button type="button" class="btn btn-outline-primary" id="getCurrentLocation">
+                            <i class="fas fa-crosshairs"></i> Get Current Location
+                        </button>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                            <i class="fas fa-search"></i> Detect Damage
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Loading Indicator -->
+                <div class="loading text-center" id="loadingIndicator">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Analyzing image for road damage...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detection Results -->
+        <div id="detectionResults" style="display: none;"></div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-check-circle text-success"></i> Detection Complete
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Results will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="/dashboard" class="btn btn-primary">View Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadArea = document.getElementById('uploadArea');
+    const imageInput = document.getElementById('imageInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const uploadForm = document.getElementById('uploadForm');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const submitBtn = document.getElementById('submitBtn');
+    const getCurrentLocationBtn = document.getElementById('getCurrentLocation');
+
+    // Upload area click handler
+    uploadArea.addEventListener('click', () => {
+        imageInput.click();
+    });
+
+    // Drag and drop handlers
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            imageInput.files = files;
+            handleImageSelect();
+        }
+    });
+
+    // Image input change handler
+    imageInput.addEventListener('change', handleImageSelect);
+
+    function handleImageSelect() {
+        const file = imageInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Get current location
+    getCurrentLocationBtn.addEventListener('click', function() {
+        if (navigator.geolocation) {
+            getCurrentLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Getting location...';
+            getCurrentLocationBtn.disabled = true;
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    document.getElementById('latitude').value = position.coords.latitude.toFixed(6);
+                    document.getElementById('longitude').value = position.coords.longitude.toFixed(6);
+                    getCurrentLocationBtn.innerHTML = '<i class="fas fa-check"></i> Location obtained';
+                    getCurrentLocationBtn.classList.remove('btn-outline-primary');
+                    getCurrentLocationBtn.classList.add('btn-success');
+                    
+                    setTimeout(() => {
+                        getCurrentLocationBtn.innerHTML = '<i class="fas fa-crosshairs"></i> Get Current Location';
+                        getCurrentLocationBtn.classList.remove('btn-success');
+                        getCurrentLocationBtn.classList.add('btn-outline-primary');
+                        getCurrentLocationBtn.disabled = false;
+                    }, 2000);
+                },
+                function(error) {
+                    alert('Error getting location: ' + error.message);
+                    getCurrentLocationBtn.innerHTML = '<i class="fas fa-crosshairs"></i> Get Current Location';
+                    getCurrentLocationBtn.disabled = false;
+                }
+            );
+        } else {
+            alert('Geolocation is not supported by this browser.');
+        }
+    });
+
+    // Form submission
+    uploadForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (!imageInput.files[0]) {
+            alert('Please select an image first.');
+            return;
+        }
+
+        const formData = new FormData(uploadForm);
+        
+        // Show loading
+        loadingIndicator.classList.add('show');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+        fetch('/api/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            loadingIndicator.classList.remove('show');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-search"></i> Detect Damage';
+
+            if (data.success) {
+                showResults(data);
+            } else {
+                alert('Error: ' + (data.error || 'Unknown error occurred'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            loadingIndicator.classList.remove('show');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-search"></i> Detect Damage';
+            alert('Error uploading image. Please try again.');
+        });
+    });
+
+    function showResults(data) {
+        const detections = data.detections;
+        const damageTypes = detections.damage_types || [];
+        const detectionCount = detections.detections ? detections.detections.length : 0;
+
+        let modalContent = `
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Detection Summary</h6>
+                    <p><strong>Total Damages Found:</strong> ${detectionCount}</p>
+                    <p><strong>Report ID:</strong> ${data.report_id}</p>
+                </div>
+                <div class="col-md-6">
+                    <h6>Damage Types Detected</h6>
+        `;
+
+        if (damageTypes.length > 0) {
+            damageTypes.forEach(type => {
+                const badgeClass = getDamageBadgeClass(type);
+                modalContent += `<span class="badge ${badgeClass} me-2 mb-2">${formatDamageType(type)}</span>`;
+            });
+        } else {
+            modalContent += '<p class="text-success">No damage detected - Road appears to be in good condition!</p>';
+        }
+
+        modalContent += `
+                </div>
+            </div>
+        `;
+
+        if (detections.detections && detections.detections.length > 0) {
+            modalContent += `
+                <hr>
+                <h6>Detailed Detections</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Damage Type</th>
+                                <th>Confidence</th>
+                                <th>Location (x, y)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            detections.detections.forEach(detection => {
+                const badgeClass = getDamageBadgeClass(detection.damage_type);
+                modalContent += `
+                    <tr>
+                        <td><span class="badge ${badgeClass}">${formatDamageType(detection.damage_type)}</span></td>
+                        <td>${(detection.confidence * 100).toFixed(1)}%</td>
+                        <td>(${Math.round(detection.bbox[0])}, ${Math.round(detection.bbox[1])})</td>
+                    </tr>
+                `;
+            });
+
+            modalContent += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        document.getElementById('modalBody').innerHTML = modalContent;
+        new bootstrap.Modal(document.getElementById('successModal')).show();
+    }
+
+    function getDamageBadgeClass(damageType) {
+        if (damageType.includes('D00') || damageType.includes('Longitudinal')) return 'damage-D00';
+        if (damageType.includes('D10') || damageType.includes('Transverse')) return 'damage-D10';
+        if (damageType.includes('D20') || damageType.includes('Alligator')) return 'damage-D20';
+        if (damageType.includes('D40') || damageType.includes('Pothole')) return 'damage-D40';
+        if (damageType.includes('Repair')) return 'damage-Repair';
+        return 'damage-Block';
+    }
+
+    function formatDamageType(type) {
+        return type.replace(/_/g, ' ').replace(/D\d+/, match => match + ':');
+    }
+});
+</script>
+{% endblock %}

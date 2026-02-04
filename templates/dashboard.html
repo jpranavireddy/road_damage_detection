@@ -1,0 +1,434 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Road Damage Detection{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="display-5">
+                <i class="fas fa-chart-bar"></i> Damage Detection Dashboard
+            </h1>
+            <a href="/batch" class="btn btn-primary">
+                <i class="fas fa-plus"></i> New Survey
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4" id="statsCards">
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-images fa-2x mb-2"></i>
+                <h3 id="totalReports">-</h3>
+                <p class="mb-0">Total Reports</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+                <h3 id="totalDamages">-</h3>
+                <p class="mb-0">Total Damages</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-road fa-2x mb-2"></i>
+                <h3 id="mostCommonDamage">-</h3>
+                <p class="mb-0">Most Common</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-calendar fa-2x mb-2"></i>
+                <h3 id="todayReports">-</h3>
+                <p class="mb-0">Today's Reports</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Map and Recent Reports -->
+<div class="row">
+    <!-- Map -->
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-map"></i> Damage Locations Map</h5>
+            </div>
+            <div class="card-body">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Damage Type Statistics -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-pie"></i> Damage Types</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="damageChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Reports Table -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-list"></i> Recent Reports</h5>
+                <button class="btn btn-sm btn-outline-primary" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="reportsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Location</th>
+                                <th>Damages</th>
+                                <th>Types</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportsTableBody">
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Report Detail Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Report Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="reportModalBody">
+                <!-- Report details will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+let map;
+let damageChart;
+let reports = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeMap();
+    loadDashboardData();
+});
+
+function initializeMap() {
+    // Initialize map centered on a default location
+    map = L.map('map').setView([40.7128, -74.0060], 10);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+}
+
+function loadDashboardData() {
+    Promise.all([
+        fetch('/api/reports').then(r => r.json()),
+        fetch('/api/stats').then(r => r.json())
+    ])
+    .then(([reportsData, statsData]) => {
+        reports = reportsData;
+        updateStatistics(statsData);
+        updateReportsTable(reports);
+        updateMap(reports);
+        updateDamageChart(statsData.damage_type_stats);
+    })
+    .catch(error => {
+        console.error('Error loading dashboard data:', error);
+    });
+}
+
+function updateStatistics(stats) {
+    document.getElementById('totalReports').textContent = stats.total_reports;
+    document.getElementById('totalDamages').textContent = stats.total_damages;
+    
+    // Find most common damage type
+    const damageStats = stats.damage_type_stats;
+    let mostCommon = 'None';
+    let maxCount = 0;
+    
+    for (const [type, count] of Object.entries(damageStats)) {
+        if (count > maxCount) {
+            maxCount = count;
+            mostCommon = formatDamageType(type);
+        }
+    }
+    
+    document.getElementById('mostCommonDamage').textContent = mostCommon;
+    
+    // Calculate today's reports
+    const today = new Date().toDateString();
+    const todayCount = reports.filter(report => 
+        new Date(report.timestamp).toDateString() === today
+    ).length;
+    
+    document.getElementById('todayReports').textContent = todayCount;
+}
+
+function updateReportsTable(reports) {
+    const tbody = document.getElementById('reportsTableBody');
+    
+    if (reports.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center">No reports found</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = reports.map(report => `
+        <tr>
+            <td>#${report.id}</td>
+            <td>
+                <img src="/${report.image_path}" alt="Road image" 
+                     style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+            </td>
+            <td>
+                ${report.location_name || 'Unknown'}
+                ${report.latitude && report.longitude ? 
+                    `<br><small class="text-muted">${report.latitude.toFixed(4)}, ${report.longitude.toFixed(4)}</small>` : 
+                    ''
+                }
+            </td>
+            <td>
+                <span class="badge ${report.detection_count > 0 ? 'bg-warning' : 'bg-success'}">
+                    ${report.detection_count}
+                </span>
+            </td>
+            <td>
+                ${report.damage_types.map(type => 
+                    `<span class="badge ${getDamageBadgeClass(type)} me-1">${formatDamageType(type)}</span>`
+                ).join('')}
+            </td>
+            <td>${new Date(report.timestamp).toLocaleDateString()}</td>
+            <td>
+                <button class="btn btn-sm btn-outline-primary" onclick="viewReport(${report.id})">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function updateMap(reports) {
+    // Clear existing markers
+    map.eachLayer(layer => {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+    
+    const bounds = [];
+    
+    reports.forEach(report => {
+        if (report.latitude && report.longitude) {
+            const marker = L.marker([report.latitude, report.longitude])
+                .addTo(map);
+            
+            const popupContent = `
+                <div>
+                    <h6>Report #${report.id}</h6>
+                    <p><strong>Location:</strong> ${report.location_name || 'Unknown'}</p>
+                    <p><strong>Damages:</strong> ${report.detection_count}</p>
+                    <p><strong>Types:</strong> ${report.damage_types.map(formatDamageType).join(', ')}</p>
+                    <p><strong>Date:</strong> ${new Date(report.timestamp).toLocaleDateString()}</p>
+                    <button class="btn btn-sm btn-primary" onclick="viewReport(${report.id})">View Details</button>
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent);
+            bounds.push([report.latitude, report.longitude]);
+        }
+    });
+    
+    // Fit map to show all markers
+    if (bounds.length > 0) {
+        map.fitBounds(bounds, { padding: [20, 20] });
+    }
+}
+
+function updateDamageChart(damageStats) {
+    const ctx = document.getElementById('damageChart').getContext('2d');
+    
+    if (damageChart) {
+        damageChart.destroy();
+    }
+    
+    const labels = Object.keys(damageStats).map(formatDamageType);
+    const data = Object.values(damageStats);
+    const colors = [
+        '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#a0a0a0'
+    ];
+    
+    damageChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: colors.slice(0, labels.length),
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+function viewReport(reportId) {
+    fetch(`/api/reports/${reportId}`)
+        .then(response => response.json())
+        .then(report => {
+            showReportModal(report);
+        })
+        .catch(error => {
+            console.error('Error loading report:', error);
+            alert('Error loading report details');
+        });
+}
+
+function showReportModal(report) {
+    const modalBody = document.getElementById('reportModalBody');
+    
+    let modalContent = `
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Original Image</h6>
+                <img src="/${report.image_path}" alt="Original" class="img-fluid rounded mb-3">
+            </div>
+    `;
+    
+    if (report.detected_image_path) {
+        modalContent += `
+            <div class="col-md-6">
+                <h6>Detected Damages</h6>
+                <img src="/${report.detected_image_path}" alt="Detected" class="img-fluid rounded mb-3">
+            </div>
+        `;
+    }
+    
+    modalContent += `
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Report Information</h6>
+                <table class="table table-sm">
+                    <tr><td><strong>Report ID:</strong></td><td>#${report.id}</td></tr>
+                    <tr><td><strong>Date:</strong></td><td>${new Date(report.timestamp).toLocaleString()}</td></tr>
+                    <tr><td><strong>Location:</strong></td><td>${report.location_name || 'Unknown'}</td></tr>
+                    <tr><td><strong>Coordinates:</strong></td><td>
+                        ${report.latitude && report.longitude ? 
+                            `${report.latitude.toFixed(6)}, ${report.longitude.toFixed(6)}` : 
+                            'Not provided'
+                        }
+                    </td></tr>
+                    <tr><td><strong>Total Damages:</strong></td><td>${report.detection_count}</td></tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h6>Damage Types</h6>
+                <div class="mb-3">
+    `;
+    
+    if (report.damage_types.length > 0) {
+        report.damage_types.forEach(type => {
+            const badgeClass = getDamageBadgeClass(type);
+            modalContent += `<span class="badge ${badgeClass} me-2 mb-2">${formatDamageType(type)}</span>`;
+        });
+    } else {
+        modalContent += '<p class="text-success">No damage detected</p>';
+    }
+    
+    modalContent += `
+                </div>
+                <h6>Confidence Scores</h6>
+                <div class="progress-stacked">
+    `;
+    
+    if (report.confidence_scores.length > 0) {
+        const avgConfidence = report.confidence_scores.reduce((a, b) => a + b, 0) / report.confidence_scores.length;
+        modalContent += `
+            <div class="progress" style="height: 20px;">
+                <div class="progress-bar" role="progressbar" 
+                     style="width: ${avgConfidence * 100}%" 
+                     aria-valuenow="${avgConfidence * 100}" aria-valuemin="0" aria-valuemax="100">
+                    ${(avgConfidence * 100).toFixed(1)}%
+                </div>
+            </div>
+        `;
+    } else {
+        modalContent += '<p class="text-muted">No detections</p>';
+    }
+    
+    modalContent += `
+                </div>
+            </div>
+        </div>
+    `;
+    
+    modalBody.innerHTML = modalContent;
+    new bootstrap.Modal(document.getElementById('reportModal')).show();
+}
+
+function refreshData() {
+    loadDashboardData();
+}
+
+function getDamageBadgeClass(damageType) {
+    if (damageType.includes('D00') || damageType.includes('Longitudinal')) return 'damage-D00';
+    if (damageType.includes('D10') || damageType.includes('Transverse')) return 'damage-D10';
+    if (damageType.includes('D20') || damageType.includes('Alligator')) return 'damage-D20';
+    if (damageType.includes('D40') || damageType.includes('Pothole')) return 'damage-D40';
+    if (damageType.includes('Repair')) return 'damage-Repair';
+    return 'damage-Block';
+}
+
+function formatDamageType(type) {
+    return type.replace(/_/g, ' ').replace(/D\d+/, match => match + ':');
+}
+</script>
+{% endblock %}

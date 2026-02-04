@@ -1,0 +1,846 @@
+{
+  "summary": {
+    "flight_name": "s_01",
+    "input_folder": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9",
+    "processing_timestamp": "2026-01-29T21:18:10.398139",
+    "total_images": 10,
+    "damaged_count": 3,
+    "clean_count": 7,
+    "error_count": 0,
+    "damage_percentage": 30.0,
+    "clean_percentage": 70.0,
+    "total_damages_detected": 3,
+    "damage_type_statistics": {
+      "D10_Transverse_Crack": 1,
+      "Unknown_Damage_67": 2
+    },
+    "average_confidence": 0.44186484813690186,
+    "confidence_threshold_used": 0.3
+  },
+  "area_analysis": {
+    "area_name": "s_01",
+    "survey_date": "2026-01-29T21:18:10.398167",
+    "overall_condition": "GOOD",
+    "condition_description": "Minor maintenance needed",
+    "summary_statistics": {
+      "total_images_surveyed": 10,
+      "damaged_locations": 3,
+      "damage_rate_percentage": 30.0,
+      "total_damaged_area_sqm": 1.57,
+      "total_repair_cost_usd": 2917.58,
+      "total_repair_time_hours": 1.4,
+      "estimated_project_duration_days": 1
+    },
+    "severity_breakdown": {
+      "minor": 3
+    },
+    "damage_type_breakdown": {
+      "D10_Transverse_Crack": 1,
+      "Unknown_Damage_67": 2
+    },
+    "priority_breakdown": {
+      "4": 3
+    },
+    "project_timeline": {
+      "immediate_phase": {
+        "damages": [],
+        "duration_days": 0,
+        "description": "Critical repairs - safety hazards"
+      },
+      "urgent_phase": {
+        "damages": [],
+        "duration_days": 0,
+        "description": "Urgent repairs - prevent deterioration"
+      },
+      "scheduled_phase": {
+        "damages": [],
+        "duration_days": 0,
+        "description": "Scheduled maintenance"
+      },
+      "preventive_phase": {
+        "damages": [
+          {
+            "damage_type": "D10_Transverse_Crack",
+            "severity": "minor",
+            "confidence": 0.39777496457099915,
+            "area_sqm": 0.39,
+            "bbox": [
+              160.22933959960938,
+              244.24107360839844,
+              211.30581665039062,
+              320.34808349609375
+            ],
+            "repair_cost": 559.77,
+            "repair_time_hours": 0.2,
+            "repair_days": 1,
+            "priority": {
+              "level": 4,
+              "action": "PREVENTIVE",
+              "timeline": "3-6 months",
+              "risk": "Minimal risk"
+            },
+            "repair_method": "Surface sealing",
+            "materials_needed": "Crack sealing compound",
+            "crew_size": {
+              "total": 2,
+              "roles": {
+                "supervisor": 1,
+                "skilled_workers": 1,
+                "traffic_control": 0
+              }
+            },
+            "equipment_needed": [
+              "Hand tools",
+              "Safety equipment",
+              "Traffic cones",
+              "Crack sealing equipment",
+              "Cleaning tools"
+            ],
+            "safety_requirements": [
+              "High-visibility clothing",
+              "Hard hats",
+              "Safety glasses",
+              "Work zone setup",
+              "Basic traffic control",
+              "Warning signs"
+            ],
+            "weather_constraints": {
+              "temperature": {
+                "min": 40,
+                "max": 100,
+                "optimal": "50-85\u00b0F"
+              },
+              "conditions": [
+                "No precipitation during work",
+                "Dry surface required",
+                "Wind speed < 25 mph for sealants",
+                "No freezing conditions"
+              ],
+              "seasonal_notes": "Best performed in spring/summer/early fall"
+            },
+            "traffic_impact": {
+              "lane_closure": "Partial or rolling closure",
+              "duration": "Minimal disruption",
+              "traffic_control": "Basic signage sufficient",
+              "alternate_route": "Not required",
+              "peak_hour_restrictions": "Can work during off-peak hours"
+            },
+            "source_image": "WhatsApp_Image_2026-01-29_at_21.08.53_6.jpeg",
+            "gps_location": {
+              "latitude": null,
+              "longitude": null
+            }
+          },
+          {
+            "damage_type": "Unknown_Damage_67",
+            "severity": "minor",
+            "confidence": 0.516250491142273,
+            "area_sqm": 0.79,
+            "bbox": [
+              245.3762969970703,
+              145.62872314453125,
+              347.888671875,
+              222.3339385986328
+            ],
+            "repair_cost": 1572.65,
+            "repair_time_hours": 0.8,
+            "repair_days": 1,
+            "priority": {
+              "level": 4,
+              "action": "PREVENTIVE",
+              "timeline": "3-6 months",
+              "risk": "Minimal risk"
+            },
+            "repair_method": "Temporary patching",
+            "materials_needed": "Cold patch asphalt",
+            "crew_size": {
+              "total": 2,
+              "roles": {
+                "supervisor": 1,
+                "skilled_workers": 1,
+                "traffic_control": 0
+              }
+            },
+            "equipment_needed": [
+              "Hand tools",
+              "Safety equipment",
+              "Traffic cones",
+              "Crack sealing equipment",
+              "Cleaning tools"
+            ],
+            "safety_requirements": [
+              "High-visibility clothing",
+              "Hard hats",
+              "Safety glasses",
+              "Work zone setup",
+              "Basic traffic control",
+              "Warning signs"
+            ],
+            "weather_constraints": {
+              "temperature": {
+                "min": 40,
+                "max": 100,
+                "optimal": "50-85\u00b0F"
+              },
+              "conditions": [
+                "No precipitation during work",
+                "Dry surface required",
+                "Wind speed < 25 mph for sealants",
+                "No freezing conditions"
+              ],
+              "seasonal_notes": "Best performed in spring/summer/early fall"
+            },
+            "traffic_impact": {
+              "lane_closure": "Partial or rolling closure",
+              "duration": "Minimal disruption",
+              "traffic_control": "Basic signage sufficient",
+              "alternate_route": "Not required",
+              "peak_hour_restrictions": "Can work during off-peak hours"
+            },
+            "source_image": "WhatsApp_Image_2026-01-29_at_21.08.53_8.jpeg",
+            "gps_location": {
+              "latitude": null,
+              "longitude": null
+            }
+          },
+          {
+            "damage_type": "Unknown_Damage_67",
+            "severity": "minor",
+            "confidence": 0.41156908869743347,
+            "area_sqm": 0.39,
+            "bbox": [
+              111.24881744384766,
+              106.37100219726562,
+              179.9371337890625,
+              163.52493286132812
+            ],
+            "repair_cost": 785.16,
+            "repair_time_hours": 0.4,
+            "repair_days": 1,
+            "priority": {
+              "level": 4,
+              "action": "PREVENTIVE",
+              "timeline": "3-6 months",
+              "risk": "Minimal risk"
+            },
+            "repair_method": "Temporary patching",
+            "materials_needed": "Cold patch asphalt",
+            "crew_size": {
+              "total": 2,
+              "roles": {
+                "supervisor": 1,
+                "skilled_workers": 1,
+                "traffic_control": 0
+              }
+            },
+            "equipment_needed": [
+              "Hand tools",
+              "Safety equipment",
+              "Traffic cones",
+              "Crack sealing equipment",
+              "Cleaning tools"
+            ],
+            "safety_requirements": [
+              "High-visibility clothing",
+              "Hard hats",
+              "Safety glasses",
+              "Work zone setup",
+              "Basic traffic control",
+              "Warning signs"
+            ],
+            "weather_constraints": {
+              "temperature": {
+                "min": 40,
+                "max": 100,
+                "optimal": "50-85\u00b0F"
+              },
+              "conditions": [
+                "No precipitation during work",
+                "Dry surface required",
+                "Wind speed < 25 mph for sealants",
+                "No freezing conditions"
+              ],
+              "seasonal_notes": "Best performed in spring/summer/early fall"
+            },
+            "traffic_impact": {
+              "lane_closure": "Partial or rolling closure",
+              "duration": "Minimal disruption",
+              "traffic_control": "Basic signage sufficient",
+              "alternate_route": "Not required",
+              "peak_hour_restrictions": "Can work during off-peak hours"
+            },
+            "source_image": "WhatsApp_Image_2026-01-29_at_21.08.53.jpeg",
+            "gps_location": {
+              "latitude": null,
+              "longitude": null
+            }
+          }
+        ],
+        "duration_days": 0,
+        "description": "Preventive maintenance"
+      },
+      "total_days": 1
+    },
+    "budget_breakdown": {
+      "categories": {
+        "materials": 1167.03,
+        "labor": 1021.15,
+        "equipment": 437.64,
+        "traffic_control": 145.88,
+        "contingency": 145.88
+      },
+      "total_budget": 2917.58,
+      "cost_per_sqm_average": 1858.33
+    },
+    "resource_requirements": {
+      "peak_crew_size": 2,
+      "total_equipment_types": 5,
+      "equipment_list": [
+        "Cleaning tools",
+        "Hand tools",
+        "Safety equipment",
+        "Traffic cones",
+        "Crack sealing equipment"
+      ],
+      "material_types": [
+        "Cold patch asphalt",
+        "Crack sealing compound"
+      ],
+      "estimated_trucks_needed": 1,
+      "storage_requirements": "Small"
+    },
+    "recommendations": [
+      {
+        "priority": "PREVENTIVE",
+        "action": "Implement regular inspection schedule every 6 months",
+        "reason": "Early detection prevents costly major repairs"
+      }
+    ],
+    "maintenance_schedule": {
+      "2026-W17": [
+        {
+          "damage_type": "D10_Transverse_Crack",
+          "severity": "minor",
+          "estimated_duration": 1,
+          "cost": 559.77,
+          "crew_size": 2
+        },
+        {
+          "damage_type": "Unknown_Damage_67",
+          "severity": "minor",
+          "estimated_duration": 1,
+          "cost": 1572.65,
+          "crew_size": 2
+        },
+        {
+          "damage_type": "Unknown_Damage_67",
+          "severity": "minor",
+          "estimated_duration": 1,
+          "cost": 785.16,
+          "crew_size": 2
+        }
+      ]
+    },
+    "risk_assessment": {
+      "risk_level": "LOW",
+      "risk_score": 3,
+      "factors": [],
+      "mitigation": [
+        "Continue regular monitoring",
+        "Schedule preventive maintenance",
+        "Document baseline conditions"
+      ],
+      "monitoring_frequency": "Quarterly"
+    }
+  },
+  "detailed_results": [
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9/WhatsApp_Image_2026-01-29_at_21.08.53_1.jpeg",
+      "filename": "WhatsApp_Image_2026-01-29_at_21.08.53_1.jpeg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 214,
+        "height": 204,
+        "channels": 3,
+        "file_size": 20435,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T21:18:10.001776",
+      "clean_image_path": "output/clean_images/s_01_WhatsApp_Image_2026-01-29_at_21.08.53_1.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9/WhatsApp_Image_2026-01-29_at_21.08.53_6.jpeg",
+      "filename": "WhatsApp_Image_2026-01-29_at_21.08.53_6.jpeg",
+      "has_damage": true,
+      "damage_count": 1,
+      "damage_types": [
+        "D10_Transverse_Crack"
+      ],
+      "confidence_scores": [
+        0.39777496457099915
+      ],
+      "detections": [
+        {
+          "bbox": [
+            160.22933959960938,
+            244.24107360839844,
+            211.30581665039062,
+            320.34808349609375
+          ],
+          "confidence": 0.39777496457099915,
+          "damage_type": "D10_Transverse_Crack",
+          "class_id": 2
+        }
+      ],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 570,
+        "height": 375,
+        "channels": 3,
+        "file_size": 61027,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T21:18:10.058221",
+      "detailed_damage_analysis": [
+        {
+          "damage_type": "D10_Transverse_Crack",
+          "severity": "minor",
+          "confidence": 0.39777496457099915,
+          "area_sqm": 0.39,
+          "bbox": [
+            160.22933959960938,
+            244.24107360839844,
+            211.30581665039062,
+            320.34808349609375
+          ],
+          "repair_cost": 559.77,
+          "repair_time_hours": 0.2,
+          "repair_days": 1,
+          "priority": {
+            "level": 4,
+            "action": "PREVENTIVE",
+            "timeline": "3-6 months",
+            "risk": "Minimal risk"
+          },
+          "repair_method": "Surface sealing",
+          "materials_needed": "Crack sealing compound",
+          "crew_size": {
+            "total": 2,
+            "roles": {
+              "supervisor": 1,
+              "skilled_workers": 1,
+              "traffic_control": 0
+            }
+          },
+          "equipment_needed": [
+            "Hand tools",
+            "Safety equipment",
+            "Traffic cones",
+            "Crack sealing equipment",
+            "Cleaning tools"
+          ],
+          "safety_requirements": [
+            "High-visibility clothing",
+            "Hard hats",
+            "Safety glasses",
+            "Work zone setup",
+            "Basic traffic control",
+            "Warning signs"
+          ],
+          "weather_constraints": {
+            "temperature": {
+              "min": 40,
+              "max": 100,
+              "optimal": "50-85\u00b0F"
+            },
+            "conditions": [
+              "No precipitation during work",
+              "Dry surface required",
+              "Wind speed < 25 mph for sealants",
+              "No freezing conditions"
+            ],
+            "seasonal_notes": "Best performed in spring/summer/early fall"
+          },
+          "traffic_impact": {
+            "lane_closure": "Partial or rolling closure",
+            "duration": "Minimal disruption",
+            "traffic_control": "Basic signage sufficient",
+            "alternate_route": "Not required",
+            "peak_hour_restrictions": "Can work during off-peak hours"
+          },
+          "source_image": "WhatsApp_Image_2026-01-29_at_21.08.53_6.jpeg",
+          "gps_location": {
+            "latitude": null,
+            "longitude": null
+          }
+        }
+      ],
+      "total_repair_cost": 559.77,
+      "total_repair_time_hours": 0.2,
+      "highest_priority": 4,
+      "most_severe": "minor",
+      "damaged_image_path": "output/damaged_images/s_01_WhatsApp_Image_2026-01-29_at_21.08.53_6.jpg",
+      "detected_image_path": "output/detected_images/detected_s_01_WhatsApp_Image_2026-01-29_at_21.08.53_6.jpg",
+      "thumbnail_path": "output/thumbnails/thumb_s_01_WhatsApp_Image_2026-01-29_at_21.08.53_6.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9/WhatsApp_Image_2026-01-29_at_21.08.53_7.jpeg",
+      "filename": "WhatsApp_Image_2026-01-29_at_21.08.53_7.jpeg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 533,
+        "height": 301,
+        "channels": 3,
+        "file_size": 54354,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T21:18:10.113501",
+      "clean_image_path": "output/clean_images/s_01_WhatsApp_Image_2026-01-29_at_21.08.53_7.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9/WhatsApp_Image_2026-01-29_at_21.08.53_4.jpeg",
+      "filename": "WhatsApp_Image_2026-01-29_at_21.08.53_4.jpeg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 535,
+        "height": 373,
+        "channels": 3,
+        "file_size": 83137,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T21:18:10.151649",
+      "clean_image_path": "output/clean_images/s_01_WhatsApp_Image_2026-01-29_at_21.08.53_4.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9/WhatsApp_Image_2026-01-29_at_21.08.53_8.jpeg",
+      "filename": "WhatsApp_Image_2026-01-29_at_21.08.53_8.jpeg",
+      "has_damage": true,
+      "damage_count": 1,
+      "damage_types": [
+        "Unknown_Damage_67"
+      ],
+      "confidence_scores": [
+        0.516250491142273
+      ],
+      "detections": [
+        {
+          "bbox": [
+            245.3762969970703,
+            145.62872314453125,
+            347.888671875,
+            222.3339385986328
+          ],
+          "confidence": 0.516250491142273,
+          "damage_type": "Unknown_Damage_67",
+          "class_id": 67
+        }
+      ],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 483,
+        "height": 279,
+        "channels": 3,
+        "file_size": 57935,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T21:18:10.184922",
+      "detailed_damage_analysis": [
+        {
+          "damage_type": "Unknown_Damage_67",
+          "severity": "minor",
+          "confidence": 0.516250491142273,
+          "area_sqm": 0.79,
+          "bbox": [
+            245.3762969970703,
+            145.62872314453125,
+            347.888671875,
+            222.3339385986328
+          ],
+          "repair_cost": 1572.65,
+          "repair_time_hours": 0.8,
+          "repair_days": 1,
+          "priority": {
+            "level": 4,
+            "action": "PREVENTIVE",
+            "timeline": "3-6 months",
+            "risk": "Minimal risk"
+          },
+          "repair_method": "Temporary patching",
+          "materials_needed": "Cold patch asphalt",
+          "crew_size": {
+            "total": 2,
+            "roles": {
+              "supervisor": 1,
+              "skilled_workers": 1,
+              "traffic_control": 0
+            }
+          },
+          "equipment_needed": [
+            "Hand tools",
+            "Safety equipment",
+            "Traffic cones",
+            "Crack sealing equipment",
+            "Cleaning tools"
+          ],
+          "safety_requirements": [
+            "High-visibility clothing",
+            "Hard hats",
+            "Safety glasses",
+            "Work zone setup",
+            "Basic traffic control",
+            "Warning signs"
+          ],
+          "weather_constraints": {
+            "temperature": {
+              "min": 40,
+              "max": 100,
+              "optimal": "50-85\u00b0F"
+            },
+            "conditions": [
+              "No precipitation during work",
+              "Dry surface required",
+              "Wind speed < 25 mph for sealants",
+              "No freezing conditions"
+            ],
+            "seasonal_notes": "Best performed in spring/summer/early fall"
+          },
+          "traffic_impact": {
+            "lane_closure": "Partial or rolling closure",
+            "duration": "Minimal disruption",
+            "traffic_control": "Basic signage sufficient",
+            "alternate_route": "Not required",
+            "peak_hour_restrictions": "Can work during off-peak hours"
+          },
+          "source_image": "WhatsApp_Image_2026-01-29_at_21.08.53_8.jpeg",
+          "gps_location": {
+            "latitude": null,
+            "longitude": null
+          }
+        }
+      ],
+      "total_repair_cost": 1572.65,
+      "total_repair_time_hours": 0.8,
+      "highest_priority": 4,
+      "most_severe": "minor",
+      "damaged_image_path": "output/damaged_images/s_01_WhatsApp_Image_2026-01-29_at_21.08.53_8.jpg",
+      "detected_image_path": "output/detected_images/detected_s_01_WhatsApp_Image_2026-01-29_at_21.08.53_8.jpg",
+      "thumbnail_path": "output/thumbnails/thumb_s_01_WhatsApp_Image_2026-01-29_at_21.08.53_8.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9/WhatsApp_Image_2026-01-29_at_21.08.54.jpeg",
+      "filename": "WhatsApp_Image_2026-01-29_at_21.08.54.jpeg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 534,
+        "height": 349,
+        "channels": 3,
+        "file_size": 78152,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T21:18:10.227815",
+      "clean_image_path": "output/clean_images/s_01_WhatsApp_Image_2026-01-29_at_21.08.54.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9/WhatsApp_Image_2026-01-29_at_21.08.53_5.jpeg",
+      "filename": "WhatsApp_Image_2026-01-29_at_21.08.53_5.jpeg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 494,
+        "height": 377,
+        "channels": 3,
+        "file_size": 68796,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T21:18:10.270430",
+      "clean_image_path": "output/clean_images/s_01_WhatsApp_Image_2026-01-29_at_21.08.53_5.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9/WhatsApp_Image_2026-01-29_at_21.08.53.jpeg",
+      "filename": "WhatsApp_Image_2026-01-29_at_21.08.53.jpeg",
+      "has_damage": true,
+      "damage_count": 1,
+      "damage_types": [
+        "Unknown_Damage_67"
+      ],
+      "confidence_scores": [
+        0.41156908869743347
+      ],
+      "detections": [
+        {
+          "bbox": [
+            111.24881744384766,
+            106.37100219726562,
+            179.9371337890625,
+            163.52493286132812
+          ],
+          "confidence": 0.41156908869743347,
+          "damage_type": "Unknown_Damage_67",
+          "class_id": 67
+        }
+      ],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 340,
+        "height": 235,
+        "channels": 3,
+        "file_size": 30226,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T21:18:10.310138",
+      "detailed_damage_analysis": [
+        {
+          "damage_type": "Unknown_Damage_67",
+          "severity": "minor",
+          "confidence": 0.41156908869743347,
+          "area_sqm": 0.39,
+          "bbox": [
+            111.24881744384766,
+            106.37100219726562,
+            179.9371337890625,
+            163.52493286132812
+          ],
+          "repair_cost": 785.16,
+          "repair_time_hours": 0.4,
+          "repair_days": 1,
+          "priority": {
+            "level": 4,
+            "action": "PREVENTIVE",
+            "timeline": "3-6 months",
+            "risk": "Minimal risk"
+          },
+          "repair_method": "Temporary patching",
+          "materials_needed": "Cold patch asphalt",
+          "crew_size": {
+            "total": 2,
+            "roles": {
+              "supervisor": 1,
+              "skilled_workers": 1,
+              "traffic_control": 0
+            }
+          },
+          "equipment_needed": [
+            "Hand tools",
+            "Safety equipment",
+            "Traffic cones",
+            "Crack sealing equipment",
+            "Cleaning tools"
+          ],
+          "safety_requirements": [
+            "High-visibility clothing",
+            "Hard hats",
+            "Safety glasses",
+            "Work zone setup",
+            "Basic traffic control",
+            "Warning signs"
+          ],
+          "weather_constraints": {
+            "temperature": {
+              "min": 40,
+              "max": 100,
+              "optimal": "50-85\u00b0F"
+            },
+            "conditions": [
+              "No precipitation during work",
+              "Dry surface required",
+              "Wind speed < 25 mph for sealants",
+              "No freezing conditions"
+            ],
+            "seasonal_notes": "Best performed in spring/summer/early fall"
+          },
+          "traffic_impact": {
+            "lane_closure": "Partial or rolling closure",
+            "duration": "Minimal disruption",
+            "traffic_control": "Basic signage sufficient",
+            "alternate_route": "Not required",
+            "peak_hour_restrictions": "Can work during off-peak hours"
+          },
+          "source_image": "WhatsApp_Image_2026-01-29_at_21.08.53.jpeg",
+          "gps_location": {
+            "latitude": null,
+            "longitude": null
+          }
+        }
+      ],
+      "total_repair_cost": 785.16,
+      "total_repair_time_hours": 0.4,
+      "highest_priority": 4,
+      "most_severe": "minor",
+      "damaged_image_path": "output/damaged_images/s_01_WhatsApp_Image_2026-01-29_at_21.08.53.jpg",
+      "detected_image_path": "output/detected_images/detected_s_01_WhatsApp_Image_2026-01-29_at_21.08.53.jpg",
+      "thumbnail_path": "output/thumbnails/thumb_s_01_WhatsApp_Image_2026-01-29_at_21.08.53.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9/WhatsApp_Image_2026-01-29_at_21.08.53_2.jpeg",
+      "filename": "WhatsApp_Image_2026-01-29_at_21.08.53_2.jpeg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 373,
+        "height": 242,
+        "channels": 3,
+        "file_size": 33525,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T21:18:10.354604",
+      "clean_image_path": "output/clean_images/s_01_WhatsApp_Image_2026-01-29_at_21.08.53_2.jpg"
+    },
+    {
+      "original_path": "/var/folders/qf/gtjqxl4d5zv5m8dpy748xnn40000gn/T/tmpzq712kw9/WhatsApp_Image_2026-01-29_at_21.08.53_3.jpeg",
+      "filename": "WhatsApp_Image_2026-01-29_at_21.08.53_3.jpeg",
+      "has_damage": false,
+      "damage_count": 0,
+      "damage_types": [],
+      "confidence_scores": [],
+      "detections": [],
+      "latitude": null,
+      "longitude": null,
+      "image_info": {
+        "width": 347,
+        "height": 238,
+        "channels": 3,
+        "file_size": 31649,
+        "format": ".jpeg"
+      },
+      "timestamp": "2026-01-29T21:18:10.397661",
+      "clean_image_path": "output/clean_images/s_01_WhatsApp_Image_2026-01-29_at_21.08.53_3.jpg"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+# Core web framework
+Flask==2.3.3
+Flask-CORS==4.0.0
+Flask-SQLAlchemy==3.0.5
+
+# Image processing and AI
+torch==2.0.1
+torchvision==0.15.2
+ultralytics==8.0.196
+opencv-python==4.8.1.78
+Pillow==10.0.0
+numpy==1.24.3
+
+# Database
+SQLAlchemy==2.0.21
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+werkzeug==2.3.7
+
+# Optional: For production deployment
+gunicorn==21.2.0

@@ -1,0 +1,739 @@
+{
+  "area_analysis": {
+    "area_name": "Highway A1 - Section 5",
+    "survey_date": "2026-01-29T21:15:07.157735",
+    "overall_condition": "CRITICAL",
+    "condition_description": "Immediate attention required",
+    "summary_statistics": {
+      "total_images_surveyed": 50,
+      "damaged_locations": 4,
+      "damage_rate_percentage": 8.0,
+      "total_damaged_area_sqm": 4.26,
+      "total_repair_cost_usd": 42440.0,
+      "total_repair_time_hours": 30.7,
+      "estimated_project_duration_days": 4
+    },
+    "severity_breakdown": {
+      "severe": 1,
+      "moderate": 2,
+      "critical": 1
+    },
+    "damage_type_breakdown": {
+      "D40_Pothole": 1,
+      "D00_Longitudinal_Crack": 1,
+      "D20_Alligator_Crack": 1,
+      "D10_Transverse_Crack": 1
+    },
+    "priority_breakdown": {
+      "2": 1,
+      "3": 2,
+      "1": 1
+    },
+    "project_timeline": {
+      "immediate_phase": {
+        "damages": [
+          {
+            "damage_type": "D20_Alligator_Crack",
+            "severity": "critical",
+            "confidence": 0.91,
+            "area_sqm": 2.25,
+            "bbox": [
+              300,
+              200,
+              450,
+              350
+            ],
+            "repair_cost": 36000.0,
+            "repair_time_hours": 27.0,
+            "repair_days": 4,
+            "priority": {
+              "level": 1,
+              "action": "IMMEDIATE",
+              "timeline": "24-48 hours",
+              "risk": "High safety risk"
+            },
+            "repair_method": "Full depth reconstruction",
+            "materials_needed": "Complete reconstruction",
+            "crew_size": {
+              "total": 7,
+              "roles": {
+                "supervisor": 1,
+                "equipment_operator": 1,
+                "skilled_workers": 5,
+                "traffic_control": 1,
+                "safety_officer": 1
+              }
+            },
+            "equipment_needed": [
+              "Hand tools",
+              "Safety equipment",
+              "Traffic cones",
+              "Asphalt saw",
+              "Jackhammer",
+              "Compactor",
+              "Hot mix truck",
+              "Roller",
+              "Crack router"
+            ],
+            "safety_requirements": [
+              "High-visibility clothing",
+              "Hard hats",
+              "Safety glasses",
+              "Work zone setup",
+              "Traffic control plan",
+              "Flaggers",
+              "Temporary barriers",
+              "Warning signs",
+              "Emergency response plan"
+            ],
+            "weather_constraints": {
+              "temperature": {
+                "min": 40,
+                "max": 100,
+                "optimal": "50-85\u00b0F"
+              },
+              "conditions": [
+                "No precipitation during work",
+                "Dry surface required",
+                "Wind speed < 25 mph for sealants",
+                "No freezing conditions"
+              ],
+              "seasonal_notes": "Best performed in spring/summer/early fall"
+            },
+            "traffic_impact": {
+              "lane_closure": "Required",
+              "duration": "Full repair duration",
+              "traffic_control": "Flaggers and signs required",
+              "alternate_route": "Recommended for major repairs",
+              "peak_hour_restrictions": "Avoid 7-9 AM and 4-6 PM"
+            }
+          }
+        ],
+        "duration_days": 4,
+        "description": "Critical repairs - safety hazards"
+      },
+      "urgent_phase": {
+        "damages": [
+          {
+            "damage_type": "D40_Pothole",
+            "severity": "severe",
+            "confidence": 0.85,
+            "area_sqm": 0.56,
+            "bbox": [
+              100,
+              150,
+              180,
+              220
+            ],
+            "repair_cost": 3360.0,
+            "repair_time_hours": 2.2,
+            "repair_days": 1,
+            "priority": {
+              "level": 2,
+              "action": "URGENT",
+              "timeline": "1-2 weeks",
+              "risk": "Moderate safety risk"
+            },
+            "repair_method": "Saw cut and replace",
+            "materials_needed": "Full depth patch",
+            "crew_size": {
+              "total": 4,
+              "roles": {
+                "supervisor": 1,
+                "equipment_operator": 1,
+                "skilled_workers": 2,
+                "traffic_control": 1,
+                "safety_officer": 0
+              }
+            },
+            "equipment_needed": [
+              "Hand tools",
+              "Safety equipment",
+              "Traffic cones",
+              "Asphalt saw",
+              "Jackhammer",
+              "Compactor",
+              "Hot mix truck",
+              "Roller",
+              "Crack router"
+            ],
+            "safety_requirements": [
+              "High-visibility clothing",
+              "Hard hats",
+              "Safety glasses",
+              "Work zone setup",
+              "Traffic control plan",
+              "Flaggers",
+              "Temporary barriers",
+              "Warning signs",
+              "Emergency response plan"
+            ],
+            "weather_constraints": {
+              "temperature": {
+                "min": 40,
+                "max": 100,
+                "optimal": "50-85\u00b0F"
+              },
+              "conditions": [
+                "No precipitation during work",
+                "Dry surface required",
+                "Wind speed < 25 mph for sealants",
+                "No freezing conditions"
+              ],
+              "seasonal_notes": "Best performed in spring/summer/early fall"
+            },
+            "traffic_impact": {
+              "lane_closure": "Required",
+              "duration": "Full repair duration",
+              "traffic_control": "Flaggers and signs required",
+              "alternate_route": "Recommended for major repairs",
+              "peak_hour_restrictions": "Avoid 7-9 AM and 4-6 PM"
+            }
+          }
+        ],
+        "duration_days": 0,
+        "description": "Urgent repairs - prevent deterioration"
+      },
+      "scheduled_phase": {
+        "damages": [
+          {
+            "damage_type": "D00_Longitudinal_Crack",
+            "severity": "moderate",
+            "confidence": 0.72,
+            "area_sqm": 1.0,
+            "bbox": [
+              200,
+              100,
+              250,
+              300
+            ],
+            "repair_cost": 2000.0,
+            "repair_time_hours": 1.0,
+            "repair_days": 1,
+            "priority": {
+              "level": 3,
+              "action": "SCHEDULED",
+              "timeline": "1-3 months",
+              "risk": "Low safety risk"
+            },
+            "repair_method": "Routing and sealing",
+            "materials_needed": "Rubberized crack filler",
+            "crew_size": {
+              "total": 3,
+              "roles": {
+                "supervisor": 1,
+                "skilled_workers": 2,
+                "traffic_control": 1
+              }
+            },
+            "equipment_needed": [
+              "Hand tools",
+              "Safety equipment",
+              "Traffic cones",
+              "Crack sealing equipment",
+              "Cleaning tools"
+            ],
+            "safety_requirements": [
+              "High-visibility clothing",
+              "Hard hats",
+              "Safety glasses",
+              "Work zone setup",
+              "Basic traffic control",
+              "Warning signs"
+            ],
+            "weather_constraints": {
+              "temperature": {
+                "min": 40,
+                "max": 100,
+                "optimal": "50-85\u00b0F"
+              },
+              "conditions": [
+                "No precipitation during work",
+                "Dry surface required",
+                "Wind speed < 25 mph for sealants",
+                "No freezing conditions"
+              ],
+              "seasonal_notes": "Best performed in spring/summer/early fall"
+            },
+            "traffic_impact": {
+              "lane_closure": "Partial or rolling closure",
+              "duration": "Minimal disruption",
+              "traffic_control": "Basic signage sufficient",
+              "alternate_route": "Not required",
+              "peak_hour_restrictions": "Can work during off-peak hours"
+            }
+          },
+          {
+            "damage_type": "D10_Transverse_Crack",
+            "severity": "moderate",
+            "confidence": 0.68,
+            "area_sqm": 0.45,
+            "bbox": [
+              50,
+              400,
+              200,
+              430
+            ],
+            "repair_cost": 1080.0,
+            "repair_time_hours": 0.5,
+            "repair_days": 1,
+            "priority": {
+              "level": 3,
+              "action": "SCHEDULED",
+              "timeline": "1-3 months",
+              "risk": "Low safety risk"
+            },
+            "repair_method": "Crack routing and sealing",
+            "materials_needed": "Polymer-modified sealant",
+            "crew_size": {
+              "total": 3,
+              "roles": {
+                "supervisor": 1,
+                "skilled_workers": 2,
+                "traffic_control": 1
+              }
+            },
+            "equipment_needed": [
+              "Hand tools",
+              "Safety equipment",
+              "Traffic cones",
+              "Crack sealing equipment",
+              "Cleaning tools"
+            ],
+            "safety_requirements": [
+              "High-visibility clothing",
+              "Hard hats",
+              "Safety glasses",
+              "Work zone setup",
+              "Basic traffic control",
+              "Warning signs"
+            ],
+            "weather_constraints": {
+              "temperature": {
+                "min": 40,
+                "max": 100,
+                "optimal": "50-85\u00b0F"
+              },
+              "conditions": [
+                "No precipitation during work",
+                "Dry surface required",
+                "Wind speed < 25 mph for sealants",
+                "No freezing conditions"
+              ],
+              "seasonal_notes": "Best performed in spring/summer/early fall"
+            },
+            "traffic_impact": {
+              "lane_closure": "Partial or rolling closure",
+              "duration": "Minimal disruption",
+              "traffic_control": "Basic signage sufficient",
+              "alternate_route": "Not required",
+              "peak_hour_restrictions": "Can work during off-peak hours"
+            }
+          }
+        ],
+        "duration_days": 0,
+        "description": "Scheduled maintenance"
+      },
+      "preventive_phase": {
+        "damages": [],
+        "duration_days": 0,
+        "description": "Preventive maintenance"
+      },
+      "total_days": 4
+    },
+    "budget_breakdown": {
+      "categories": {
+        "materials": 16976.0,
+        "labor": 14854.0,
+        "equipment": 6366.0,
+        "traffic_control": 2122.0,
+        "contingency": 2122.0
+      },
+      "total_budget": 42440.0,
+      "cost_per_sqm_average": 9962.44
+    },
+    "resource_requirements": {
+      "peak_crew_size": 7,
+      "total_equipment_types": 11,
+      "equipment_list": [
+        "Asphalt saw",
+        "Jackhammer",
+        "Traffic cones",
+        "Hand tools",
+        "Crack router",
+        "Safety equipment",
+        "Compactor",
+        "Hot mix truck",
+        "Roller",
+        "Crack sealing equipment",
+        "Cleaning tools"
+      ],
+      "material_types": [
+        "Full depth patch",
+        "Rubberized crack filler",
+        "Complete reconstruction",
+        "Polymer-modified sealant"
+      ],
+      "estimated_trucks_needed": 1,
+      "storage_requirements": "Small"
+    },
+    "recommendations": [
+      {
+        "priority": "IMMEDIATE",
+        "action": "Address 1 critical damage(s) within 24-48 hours",
+        "reason": "Safety hazard - risk of accidents or further deterioration"
+      },
+      {
+        "priority": "URGENT",
+        "action": "Schedule 1 severe repair(s) within 1-2 weeks",
+        "reason": "Prevent escalation to critical condition"
+      },
+      {
+        "priority": "PREVENTIVE",
+        "action": "Implement regular inspection schedule every 6 months",
+        "reason": "Early detection prevents costly major repairs"
+      }
+    ],
+    "maintenance_schedule": {
+      "2026-W05": [
+        {
+          "damage_type": "D40_Pothole",
+          "severity": "severe",
+          "estimated_duration": 1,
+          "cost": 3360.0,
+          "crew_size": 4
+        }
+      ],
+      "2026-W08": [
+        {
+          "damage_type": "D00_Longitudinal_Crack",
+          "severity": "moderate",
+          "estimated_duration": 1,
+          "cost": 2000.0,
+          "crew_size": 3
+        },
+        {
+          "damage_type": "D10_Transverse_Crack",
+          "severity": "moderate",
+          "estimated_duration": 1,
+          "cost": 1080.0,
+          "crew_size": 3
+        }
+      ],
+      "2026-W04": [
+        {
+          "damage_type": "D20_Alligator_Crack",
+          "severity": "critical",
+          "estimated_duration": 4,
+          "cost": 36000.0,
+          "crew_size": 7
+        }
+      ]
+    },
+    "risk_assessment": {
+      "risk_level": "HIGH",
+      "risk_score": 11,
+      "factors": [
+        "Severe D40_Pothole",
+        "Critical D20_Alligator_Crack"
+      ],
+      "mitigation": [
+        "Implement immediate traffic control measures",
+        "Post warning signs for hazardous areas",
+        "Consider temporary road closure if necessary",
+        "Expedite critical repairs",
+        "Increase inspection frequency"
+      ],
+      "monitoring_frequency": "Bi-weekly"
+    }
+  },
+  "detailed_damages": [
+    {
+      "damage_type": "D40_Pothole",
+      "severity": "severe",
+      "confidence": 0.85,
+      "area_sqm": 0.56,
+      "bbox": [
+        100,
+        150,
+        180,
+        220
+      ],
+      "repair_cost": 3360.0,
+      "repair_time_hours": 2.2,
+      "repair_days": 1,
+      "priority": {
+        "level": 2,
+        "action": "URGENT",
+        "timeline": "1-2 weeks",
+        "risk": "Moderate safety risk"
+      },
+      "repair_method": "Saw cut and replace",
+      "materials_needed": "Full depth patch",
+      "crew_size": {
+        "total": 4,
+        "roles": {
+          "supervisor": 1,
+          "equipment_operator": 1,
+          "skilled_workers": 2,
+          "traffic_control": 1,
+          "safety_officer": 0
+        }
+      },
+      "equipment_needed": [
+        "Hand tools",
+        "Safety equipment",
+        "Traffic cones",
+        "Asphalt saw",
+        "Jackhammer",
+        "Compactor",
+        "Hot mix truck",
+        "Roller",
+        "Crack router"
+      ],
+      "safety_requirements": [
+        "High-visibility clothing",
+        "Hard hats",
+        "Safety glasses",
+        "Work zone setup",
+        "Traffic control plan",
+        "Flaggers",
+        "Temporary barriers",
+        "Warning signs",
+        "Emergency response plan"
+      ],
+      "weather_constraints": {
+        "temperature": {
+          "min": 40,
+          "max": 100,
+          "optimal": "50-85\u00b0F"
+        },
+        "conditions": [
+          "No precipitation during work",
+          "Dry surface required",
+          "Wind speed < 25 mph for sealants",
+          "No freezing conditions"
+        ],
+        "seasonal_notes": "Best performed in spring/summer/early fall"
+      },
+      "traffic_impact": {
+        "lane_closure": "Required",
+        "duration": "Full repair duration",
+        "traffic_control": "Flaggers and signs required",
+        "alternate_route": "Recommended for major repairs",
+        "peak_hour_restrictions": "Avoid 7-9 AM and 4-6 PM"
+      }
+    },
+    {
+      "damage_type": "D00_Longitudinal_Crack",
+      "severity": "moderate",
+      "confidence": 0.72,
+      "area_sqm": 1.0,
+      "bbox": [
+        200,
+        100,
+        250,
+        300
+      ],
+      "repair_cost": 2000.0,
+      "repair_time_hours": 1.0,
+      "repair_days": 1,
+      "priority": {
+        "level": 3,
+        "action": "SCHEDULED",
+        "timeline": "1-3 months",
+        "risk": "Low safety risk"
+      },
+      "repair_method": "Routing and sealing",
+      "materials_needed": "Rubberized crack filler",
+      "crew_size": {
+        "total": 3,
+        "roles": {
+          "supervisor": 1,
+          "skilled_workers": 2,
+          "traffic_control": 1
+        }
+      },
+      "equipment_needed": [
+        "Hand tools",
+        "Safety equipment",
+        "Traffic cones",
+        "Crack sealing equipment",
+        "Cleaning tools"
+      ],
+      "safety_requirements": [
+        "High-visibility clothing",
+        "Hard hats",
+        "Safety glasses",
+        "Work zone setup",
+        "Basic traffic control",
+        "Warning signs"
+      ],
+      "weather_constraints": {
+        "temperature": {
+          "min": 40,
+          "max": 100,
+          "optimal": "50-85\u00b0F"
+        },
+        "conditions": [
+          "No precipitation during work",
+          "Dry surface required",
+          "Wind speed < 25 mph for sealants",
+          "No freezing conditions"
+        ],
+        "seasonal_notes": "Best performed in spring/summer/early fall"
+      },
+      "traffic_impact": {
+        "lane_closure": "Partial or rolling closure",
+        "duration": "Minimal disruption",
+        "traffic_control": "Basic signage sufficient",
+        "alternate_route": "Not required",
+        "peak_hour_restrictions": "Can work during off-peak hours"
+      }
+    },
+    {
+      "damage_type": "D20_Alligator_Crack",
+      "severity": "critical",
+      "confidence": 0.91,
+      "area_sqm": 2.25,
+      "bbox": [
+        300,
+        200,
+        450,
+        350
+      ],
+      "repair_cost": 36000.0,
+      "repair_time_hours": 27.0,
+      "repair_days": 4,
+      "priority": {
+        "level": 1,
+        "action": "IMMEDIATE",
+        "timeline": "24-48 hours",
+        "risk": "High safety risk"
+      },
+      "repair_method": "Full depth reconstruction",
+      "materials_needed": "Complete reconstruction",
+      "crew_size": {
+        "total": 7,
+        "roles": {
+          "supervisor": 1,
+          "equipment_operator": 1,
+          "skilled_workers": 5,
+          "traffic_control": 1,
+          "safety_officer": 1
+        }
+      },
+      "equipment_needed": [
+        "Hand tools",
+        "Safety equipment",
+        "Traffic cones",
+        "Asphalt saw",
+        "Jackhammer",
+        "Compactor",
+        "Hot mix truck",
+        "Roller",
+        "Crack router"
+      ],
+      "safety_requirements": [
+        "High-visibility clothing",
+        "Hard hats",
+        "Safety glasses",
+        "Work zone setup",
+        "Traffic control plan",
+        "Flaggers",
+        "Temporary barriers",
+        "Warning signs",
+        "Emergency response plan"
+      ],
+      "weather_constraints": {
+        "temperature": {
+          "min": 40,
+          "max": 100,
+          "optimal": "50-85\u00b0F"
+        },
+        "conditions": [
+          "No precipitation during work",
+          "Dry surface required",
+          "Wind speed < 25 mph for sealants",
+          "No freezing conditions"
+        ],
+        "seasonal_notes": "Best performed in spring/summer/early fall"
+      },
+      "traffic_impact": {
+        "lane_closure": "Required",
+        "duration": "Full repair duration",
+        "traffic_control": "Flaggers and signs required",
+        "alternate_route": "Recommended for major repairs",
+        "peak_hour_restrictions": "Avoid 7-9 AM and 4-6 PM"
+      }
+    },
+    {
+      "damage_type": "D10_Transverse_Crack",
+      "severity": "moderate",
+      "confidence": 0.68,
+      "area_sqm": 0.45,
+      "bbox": [
+        50,
+        400,
+        200,
+        430
+      ],
+      "repair_cost": 1080.0,
+      "repair_time_hours": 0.5,
+      "repair_days": 1,
+      "priority": {
+        "level": 3,
+        "action": "SCHEDULED",
+        "timeline": "1-3 months",
+        "risk": "Low safety risk"
+      },
+      "repair_method": "Crack routing and sealing",
+      "materials_needed": "Polymer-modified sealant",
+      "crew_size": {
+        "total": 3,
+        "roles": {
+          "supervisor": 1,
+          "skilled_workers": 2,
+          "traffic_control": 1
+        }
+      },
+      "equipment_needed": [
+        "Hand tools",
+        "Safety equipment",
+        "Traffic cones",
+        "Crack sealing equipment",
+        "Cleaning tools"
+      ],
+      "safety_requirements": [
+        "High-visibility clothing",
+        "Hard hats",
+        "Safety glasses",
+        "Work zone setup",
+        "Basic traffic control",
+        "Warning signs"
+      ],
+      "weather_constraints": {
+        "temperature": {
+          "min": 40,
+          "max": 100,
+          "optimal": "50-85\u00b0F"
+        },
+        "conditions": [
+          "No precipitation during work",
+          "Dry surface required",
+          "Wind speed < 25 mph for sealants",
+          "No freezing conditions"
+        ],
+        "seasonal_notes": "Best performed in spring/summer/early fall"
+      },
+      "traffic_impact": {
+        "lane_closure": "Partial or rolling closure",
+        "duration": "Minimal disruption",
+        "traffic_control": "Basic signage sufficient",
+        "alternate_route": "Not required",
+        "peak_hour_restrictions": "Can work during off-peak hours"
+      }
+    }
+  ],
+  "generated_at": "2026-01-29T21:15:07.157882"
+}
